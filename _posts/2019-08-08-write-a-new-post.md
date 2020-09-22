@@ -1,9 +1,13 @@
 ---
 title: Writing a New Post
 author: Cotes Chung
-date: 2019-08-08 14:10:00 +0800
-categories: [Blogging, Tutorial]
-tags: [writing]
+date: '2019-08-08 14:10:00 +0800'
+categories:
+  - Blogging
+  - Tutorial
+tags:
+  - writing
+published: false
 ---
 
 ## Naming and Path
@@ -185,4 +189,3 @@ If you want to display the **Liquid** snippet, surround the liquid code with `{%
 ## Learn More
 
 For more knowledge about Jekyll posts, visit the [Jekyll Docs: Posts](https://jekyllrb.com/docs/posts/).
-
