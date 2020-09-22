@@ -3,8 +3,7 @@ title: About
 published: true
 ---
 
-# > Note: Add Markdown syntax content to file `tabs/about.md` and it will show up on this page.**
-> Cyber Security Engineer - Computer Engineering Ain Shams University
+# > Cyber Security Engineer - Computer Engineering Ain Shams University
 - CEHv10 - InfoSec4Tec 
 - Certified Penetration Testing, Incident Response and Forensics - IBM 
 - Certified Cybersecurity Compliance Framework & System Administration - IBM 
