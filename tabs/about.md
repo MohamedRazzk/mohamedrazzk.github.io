@@ -3,8 +3,8 @@ title: About
 published: true
 ---
 
-**#  Mohamed F. Razzk**
->## Cyber Security Engineer - Computer Engineering Ain Shams University<
+#  Mohamed F. Razzk
+## Cyber Security Engineer - Computer Engineering Ain Shams University<
 - CEHv10 - InfoSec4Tec 
 - Certified Penetration Testing, Incident Response and Forensics - IBM 
 - Certified Cybersecurity Compliance Framework & System Administration - IBM 
