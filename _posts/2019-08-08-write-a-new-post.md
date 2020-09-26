@@ -7,7 +7,7 @@ categories:
   - Tutorial
 tags:
   - writing
-published: true
+published: false
 ---
 
 ## Naming and Path
