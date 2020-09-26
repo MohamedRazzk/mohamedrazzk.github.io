@@ -8,7 +8,7 @@ categories:
 tags:
   - getting started
 pin: true
-published: ture
+published: true
 ---
 
 
