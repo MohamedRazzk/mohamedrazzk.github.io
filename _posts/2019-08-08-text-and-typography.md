@@ -9,7 +9,7 @@ tags:
   - typography
 math: true
 image: /assets/img/sample/devices-mockup.png
-published: false
+published: true
 ---
 
 This Jekyll template totally compatible with Markdown syntax. Now, let's have a look at the text and typography.
