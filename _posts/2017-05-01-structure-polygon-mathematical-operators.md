@@ -35,7 +35,6 @@ A redundant point is a point of the polygon points that can be deleted without c
 - (1,1),`(2,1)`,(4,1),(4,3),(1,3)
 - (1,2),(4,2),`(4,2)`,(4,8),(1,8)
 - (1,2),(4,2),`(4,2)`,`(4,2)`,(4,8),(1,8)
-
 ```
 In the second case two neighbor identical points any one of them can be redundant (you should select only the second one). If more than two points are identical and follow each other, all of them are redundant except the first point of them.
 
