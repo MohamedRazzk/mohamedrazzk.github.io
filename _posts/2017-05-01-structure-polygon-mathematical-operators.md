@@ -13,12 +13,12 @@ published: true
 
 ## Inroduction
 
-Structure Polygons shaps calculators writen in c++ can do multiple operation on multiple polygon given by points on one string . 
+> Structure Polygons shaps calculators writen in c++ can do multiple operation on multiple polygon given by points on one string . 
 
 ## Project Description
 
 a program to do operations on polygons data. The program use a defined string format to represent polygons. All polygons will be in one line input. For example:
-Polygons=[(1,1),(4,1),(4,5),(1,5);(3,4),(6,4),(6,12),(3,12)]
+`Polygons=[(1,1),(4,1),(4,5),(1,5);(3,4),(6,4),(6,12),(3,12)]`
 
 ## Polygons Data
 
