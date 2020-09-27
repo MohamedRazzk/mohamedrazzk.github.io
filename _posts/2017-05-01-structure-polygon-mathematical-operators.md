@@ -3,7 +3,7 @@ title: C++ Structure Polygon Mathematical Operators
 author: Razzk
 date: '2017-05-01 14:10:00 +0800'
 categories:
-  - Programming 
+  - Projects 
   - C++
 tags:
   - C++
