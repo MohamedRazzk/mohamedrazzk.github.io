@@ -89,7 +89,7 @@ When the program start, the user enters one Polygons Line in the defined above f
 
 ## Code - Some Funcations 
 
-```shell
+```cpp
 int Number_Polygons (string input , int input_length) //function to get polygons number
 {
     int polygon_numbers = 0 ;
@@ -106,7 +106,7 @@ int Number_Polygons (string input , int input_length) //function to get polygons
 ```
 
 
-```shell
+```cpp
 int Total_Number_Points (string input , int input_length) //function to get total number of points
 {
     int number_point = 0 ;
@@ -121,7 +121,7 @@ int Total_Number_Points (string input , int input_length) //function to get tota
 }
 ```
 
-```shell
+```cpp
 int Total_Number_Points (string input , int input_length) //function to get total number of points
 {
     int Redundant_points (string points , int number ) // function to number of redundant at polygon
@@ -169,4 +169,4 @@ int Total_Number_Points (string input , int input_length) //function to get tota
 
 ## Learn More
 
- For Project Code, Visit  [Project Repository ](https://github.com/MohamedRazzk/structure_polygon_mathematical_operators/).
+ For Project Code , Visit  [Project Repository ](https://github.com/MohamedRazzk/structure_polygon_mathematical_operators/).
