@@ -31,11 +31,11 @@ The Polygons line contains a list of polygons data separated by ‘;’. Fields 
 
 A redundant point is a point of the polygon points that can be deleted without change in the polygon shape. Like 
 
-```yeml
-- (1,1),`(2,1)`,(4,1),(4,3),(1,3)
-- (1,2),(4,2),`(4,2)`,(4,8),(1,8)
-- (1,2),(4,2),`(4,2)`,`(4,2)`,(4,8),(1,8)
-```
+- Examples of Redundant Point 
+  - (1,1),`(2,1)`,(4,1),(4,3),(1,3)
+  - (1,2),(4,2),`(4,2)`,(4,8),(1,8)
+  - (1,2),(4,2),`(4,2)`,`(4,2)`,(4,8),(1,8)
+
 In the second case two neighbor identical points any one of them can be redundant (you should select only the second one). If more than two points are identical and follow each other, all of them are redundant except the first point of them.
 
 ### Intersecting Polygons
@@ -87,7 +87,86 @@ When the program start, the user enters one Polygons Line in the defined above f
 
 
 
+## Code - Some Funcations 
+
+```C++
+int Number_Polygons (string input , int input_length) //function to get polygons number
+{
+    int polygon_numbers = 0 ;
+
+    for (int i=0 ; i <= input_length ; i++ )
+    {
+        if ( input [i]== ';')
+        {
+            polygon_numbers = polygon_numbers +1 ;
+        }
+    }
+    return  polygon_numbers+1 ;
+}
+```
+
+
+```C++
+int Total_Number_Points (string input , int input_length) //function to get total number of points
+{
+    int number_point = 0 ;
+    for (int i = 0 ; i <= input_length  ; i++ )
+    {
+        if (input[i]=='(')
+        {
+            number_point = number_point  + 1 ;
+        }
+    }
+    return  number_point ;
+}
+```
+
+```C++
+int Total_Number_Points (string input , int input_length) //function to get total number of points
+{
+    int Redundant_points (string points , int number ) // function to number of redundant at polygon
+{
+    int arc[1000]; int col[1000];int inarc[1000];int   counter1= 0;int  counter2= 0 ;int counter3 = 0 ;int colrep = 1  ;
+
+    for (int i =0 ;  i<= points.length() ;i++ ) //getting place of that "(" and  ")" and ","
+    {
+        if (points[i]== '('){counter1=counter1+1;  arc[counter1]=i ;}
+        if (points[i]== ','){counter2=counter2+1;  col[counter2]=i ;}
+        if (points[i]== ')'){counter3=counter3+1;inarc[counter3]=i ;}
+    }
+    float x[1000]; float y [1000]; float slope[1000];
+    for (int i = 1 ; i <=number ; i++){
+
+        x[i]=atof(points.substr(arc[i]+1,col[colrep]-arc[i]-1).c_str()) ;
+        y[i]=atof(points.substr(col[colrep]+1,inarc[i]-col[colrep]-1).c_str())  ;
+        colrep +=2 ;
+    }
+
+    float xr[1000]; float yr[1000];
+    xr[1]=x[1]; yr[1]=y[1];
+    //  int repeater = 2 ;
+    int re =0;
+
+    slope[1]=((y[1+1]-y[1])/(x[1+1]-x[1]));
+    for (int i = 2 ; i<=number ; i++)
+    {
+        slope[i]=((y[i+1]-y[i])/(x[i+1]-x[i]));
+
+        for (int p =2 ; p <=number ;p++){
+
+            if (x[i-1]==x[i] && y[i-1]==y[i]) { re +=1 ; break; } // get redundant of dip point
+            if(x[i+1]-x[i] !=0 && slope[i]==slope[i-1]) { re +=1 ;break; } // getting redundant point of slope
+            if (x[i+1]-x[i]==0 && y[i+1]-y[i]!=0 && x[i]-x[i-1]==0 && y[i]-y[i-1]!=0 ){  re+=1;   ; break; }// get redundant of x-x =0
+
+            // xr[repeater] = x[i];yr[repeater] =y[i];repeater +=1 ;
+            break ;
+        }}
+    //for (int i=1 ;i<repeater ; i++) { cout << "X = " << xr[i] << endl;cout << "y = " << yr[i] << endl; }
+    return re ;
+}}
+```
+
 
 ## Learn More
 
-For more Whole Code of project , visit the [Project Repository ](https://github.com/MohamedRazzk/structure_polygon_mathematical_operators/).
+ For Project Code , Visit  [Project Repository ](https://github.com/MohamedRazzk/structure_polygon_mathematical_operators/).
