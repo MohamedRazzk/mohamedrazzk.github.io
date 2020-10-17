@@ -5,7 +5,6 @@ date: '2018-06-01 14:10:00 +0800'
 categories:
   - Reverse Engineering 
   - CT-CTF
-  - Cloak and Dagger
 tags:
   - C++
   - CT-Reverse Engineering
