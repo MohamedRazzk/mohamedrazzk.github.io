@@ -17,157 +17,143 @@ pin: false
 
 ## Inroduction
 
-> Structure Polygons shaps calculators writen in c++ can do multiple operation on multiple polygon given by points on one string . 
+> Cyber Talents - Cloak and dagger reverse engineering ahram canadian competition. 
 
-## Project Description
+## Description
 
-a program to do operations on polygons data. The program use a defined string format to represent polygons. All polygons will be in one line input. For example:
-`Polygons=[(1,1),(4,1),(4,5),(1,5);(3,4),(6,4),(6,12),(3,12)]`
+Dot net binary file given as excutable file called cloak and dagger with description of " Open The right file to get the flag " Reverse it to get the flag 
 
-## Polygons Data
+## File
 
-The Polygons line contains a list of polygons data separated by ‘;’. Fields of a Polygon is represented by a set of points separated by ‘,’. The number of polygons are up to 1000 polygon. Each polygon has up to 100 points.
+ For downloading excutable file , Visit  [Cloak And Dagger.exe ](https://github.com/MohamedRazzk/mohamedrazzk.github.io/blob/master/_posts/Data/Cloak%20and%20Dagger.exe).
  
-### Definition of Redundant Point
+## Solution
 
-A redundant point is a point of the polygon points that can be deleted without change in the polygon shape. Like 
-
-- Examples of Redundant Point 
-  - (1,1),`(2,1)`,(4,1),(4,3),(1,3)
-  - (1,2),(4,2),`(4,2)`,(4,8),(1,8)
-  - (1,2),(4,2),`(4,2)`,`(4,2)`,(4,8),(1,8)
-
-In the second case two neighbor identical points any one of them can be redundant (you should select only the second one). If more than two points are identical and follow each other, all of them are redundant except the first point of them.
-
-### Intersecting Polygons
-
-Intersecting Polygons are polygons sharing common area, side, or point(s).
-
-### Connected Polygons
-
-Two Connected Polygons are polygons that are intersecting or polygons which have path from one to the other through intersecting polygons.
-
-## Operations
-
-When the program start, the user enters one Polygons Line in the defined above format then followed by one or more operations from the below table (each operation in a line). The program ends when it reads Quit operation.
-
-### Operations Table 
-
-|           Operation          |                                      Action                                                |
-|:-----------------------------|:-------------------------------------------------------------------------------------------|
-| Number_Polygons              | Print the number of polygons.                                                              |
-| Total_Number_Points          | Print the total number of points in all polygons.                                          |
-| Minimum_X                    | Print the minimum X value of all points.                                                   |
-| Maximum_X                    | Print the maximum X value of all points                                                    |
-| Minimum_Y                    | Print the minimum Y value of all points.                                                   |
-| Maximum_Y                    | Print the maximum Y value of all points                                                    |
-| Enclosing_Rectangle          | Print the minimum Enclosing Rectangle that includes all polygons inside it                 |
-| Total_Redundant_Points       | The number of Redundant points in all polygons                                             |
-| Polygon_Points `n`           | List all points of the nth polygon (neglecting redundant points) n start from 1            |
-| Point_Polygons `(2,1)`       | List all polygons IDs(ID is 1 for the first polygon, 2 for the second polygon,...)         |
-| List_Polygons_Points More `n`| List Polygons having more than n points excluding redundant points where n is an integer.  |
-| List_Polygons_Points Less `n`| List Polygons having less than n points excluding redundant points where n is an integer.  |
-| List_Polygons_Points Equal`n`| List Polygons having exactly n points excluding redundant points where n is an integer.    |
-| List_Points_Polygons More `n`| List all Points that are in the list of more than n polygons where n is an integer.        |
-| List_Points_Polygons Less `n`| List all Points that are in the list of less than n polygons where n is an integer.        |
-| List_Points_Polygons Equal`n`| List all Points that are in the list of less than n polygons where n is an integer.        |
-| Polygon_Perimeter `n`        | Print the perimeter of the nth polygon.                                                    |
-| List_Triangles               | List all Polygon IDs of polygons that are triangles.                                       |
-| List_Rectangles              | List all Polygon IDs of polygons that are rectangles.                                      |
-| List_Trapezoid               | List all Polygon IDs of polygons that are trapezoid.                                       |
-| Inside_Rectangle`Edge Points`| List all Polygon IDs of polygons that are inside the given rectangle.                      | 
-| Inside_Circle  e.g`(1,2),5`  | List all Polygon IDs of polygons that are inside the given Circle `Center` `Raduis`        |
-| Polygon_Area `n`             | Print the polygon area of the nth polygon                                                  |
-| Polygons_Area_Range `n1`,`n2`| List all Polygon IDs of polygons that have area <= minArea`n1` and >=maxArea.`n1`          |  
-| Polygons_Enclosing_Point `p` | List all Polygon IDs of polygons that have the point `p` (1,2) inside it                   |  
-| Is_Intersecting i,j          | Print TRUE if ith polygon intersects the jth polygon                                       |
-| Intersecting_Group 3,5,6     | Print TRUE if the list of polygon are all intersecting with each other                     |
-| Largest_Intersecting_Pair    | Print the two IDs of polygons that are intersecting and having the largest sum of area.    |
-| Largest_Rectangle_Inside `n` | Print the largest rectangle that can inside the nth polygon.                               |
-| Largest_Circle_Inside `n`    | Print the largest circle that can inside the nth polygon.                                  |
-
-
-
-## Code - Some Funcations 
+The file is .NET binary (you may use Detect It Easy to determine the type of a binary)
+On running it, it just lets you select a file and makes a messagebox with You have the wrong file!
+So let's load it to dnSpy
+At the decompiled class form1 there are two methods
 
 ```cpp
-int Number_Polygons (string input , int input_length) //function to get polygons number
-{
-    int polygon_numbers = 0 ;
-
-    for (int i=0 ; i <= input_length ; i++ )
-    {
-        if ( input [i]== ';')
-        {
-            polygon_numbers = polygon_numbers +1 ;
-        }
-    }
-    return  polygon_numbers+1 ;
-}
+public static string HexStr(byte[] p)
+		{
+			char[] array = new char[p.Length * 2 + 2];
+			array[0] = '0';
+			array[1] = 'x';
+			int i = 0;
+			int num = 2;
+			while (i < p.Length)
+			{
+				byte b = (byte)(p[i] >> 4);
+				array[num] = (char)((b > 9) ? (b + 55) : (b + 48));
+				b = (byte)(p[i] & 15);
+				array[++num] = (char)((b > 9) ? (b + 55) : (b + 48));
+				i++;
+				num++;
+			}
+			return new string(array);
+		}
 ```
 
+Which just converts a byte array into hex value 'a' ---> '0x61' (you can use https://dotnetfiddle.net/ or the interactive c# plugin at dnSpy to test c# code snippets)
+Also we have
 
 ```cpp
-int Total_Number_Points (string input , int input_length) //function to get total number of points
-{
-    int number_point = 0 ;
-    for (int i = 0 ; i <= input_length  ; i++ )
-    {
-        if (input[i]=='(')
-        {
-            number_point = number_point  + 1 ;
-        }
-    }
-    return  number_point ;
-}
+private void button1_Click(object sender, EventArgs e)
+		{
+			if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+				string fileName = this.openFileDialog1.FileName;
+				try
+				{
+					string b = "FF0003060C1204121212000100C40307";
+					BinaryReader binaryReader = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None));
+					binaryReader.BaseStream.Position = 0L;
+					byte[] p = binaryReader.ReadBytes(256);
+					binaryReader.Close();
+					string a = string.Concat(new string[]
+					{
+						Form1.HexStr(p).Substring(2, 2),
+						Form1.HexStr(p).Substring(34, 2),
+						Form1.HexStr(p).Substring(66, 2),
+						Form1.HexStr(p).Substring(98, 2),
+						Form1.HexStr(p).Substring(130, 2),
+						Form1.HexStr(p).Substring(162, 2),
+						Form1.HexStr(p).Substring(194, 2),
+						Form1.HexStr(p).Substring(226, 2),
+						Form1.HexStr(p).Substring(258, 2),
+						Form1.HexStr(p).Substring(290, 2),
+						Form1.HexStr(p).Substring(322, 2),
+						Form1.HexStr(p).Substring(354, 2),
+						Form1.HexStr(p).Substring(386, 2),
+						Form1.HexStr(p).Substring(418, 2),
+						Form1.HexStr(p).Substring(450, 2),
+						Form1.HexStr(p).Substring(482, 2)
+					});
+					string str = string.Concat(new string[]
+					{
+						Form1.HexStr(p).Substring(4, 2),
+						Form1.HexStr(p).Substring(36, 2),
+						Form1.HexStr(p).Substring(68, 2),
+						Form1.HexStr(p).Substring(100, 2),
+						Form1.HexStr(p).Substring(132, 2),
+						Form1.HexStr(p).Substring(164, 2),
+						Form1.HexStr(p).Substring(196, 2),
+						Form1.HexStr(p).Substring(228, 2),
+						Form1.HexStr(p).Substring(260, 2),
+						Form1.HexStr(p).Substring(292, 2),
+						Form1.HexStr(p).Substring(324, 2),
+						Form1.HexStr(p).Substring(356, 2),
+						Form1.HexStr(p).Substring(388, 2),
+						Form1.HexStr(p).Substring(420, 2),
+						Form1.HexStr(p).Substring(452, 2),
+						Form1.HexStr(p).Substring(484, 2)
+					});
+					if (a == b)
+					{
+						MessageBox.Show("Flag is: " + str);
+					}
+					else
+					{
+						MessageBox.Show("You have the wrong file!");
+					}
+				}
+				catch (IOException)
+				{
+				}
+			}
+		}
 ```
+Which does this:
+
+1. Open a new file with OpenFileDialog component and read it into byte array p
+2. Define a string b with value `FF0003060C1204121212000100C40307`
+3. Define a string a with the concatenation of hex values of bytes at offsets` {0,16,32,48,64,80,96,112,128,144,160,176,192,208,224,240}` (remember that `HexStr` returns `0x` at the start of the hex string and every byte has a corresponding 2-chars hex string)
+
+4. Also defines another string `str` like a but at different offsets
+Makes a check if array string a equals string b and if true it will print the flag to be string `str<>`
+
+We can deduce some things here; first it will crash if opened a file with size < 242 bytes (484 / 2)
+Second, our target here is to open the right file nothing else
+Once I understood that, I knew that the right file is somehow embedded in the binary
+I used binwalk to extract any embedded or appended files with this command ` binwalk --dd=".*" "Cloak and Dagger.exe"`
+The extracted files are so many, so we cannot just open them one by one to get the write file
+Rather than that I will loop through all files reading them and check for the bytes at the previous indices array to be equal to the hex array `FF0003060C1204121212000100C40307`
+
+I used this simple script to achieve it
 
 ```cpp
-int Total_Number_Points (string input , int input_length) //function to get total number of points
-{
-    int Redundant_points (string points , int number ) // function to number of redundant at polygon
-{
-    int arc[1000]; int col[1000];int inarc[1000];int   counter1= 0;int  counter2= 0 ;int counter3 = 0 ;int colrep = 1  ;
-
-    for (int i =0 ;  i<= points.length() ;i++ ) //getting place of that "(" and  ")" and ","
-    {
-        if (points[i]== '('){counter1=counter1+1;  arc[counter1]=i ;}
-        if (points[i]== ','){counter2=counter2+1;  col[counter2]=i ;}
-        if (points[i]== ')'){counter3=counter3+1;inarc[counter3]=i ;}
-    }
-    float x[1000]; float y [1000]; float slope[1000];
-    for (int i = 1 ; i <=number ; i++){
-
-        x[i]=atof(points.substr(arc[i]+1,col[colrep]-arc[i]-1).c_str()) ;
-        y[i]=atof(points.substr(col[colrep]+1,inarc[i]-col[colrep]-1).c_str())  ;
-        colrep +=2 ;
-    }
-
-    float xr[1000]; float yr[1000];
-    xr[1]=x[1]; yr[1]=y[1];
-    //  int repeater = 2 ;
-    int re =0;
-
-    slope[1]=((y[1+1]-y[1])/(x[1+1]-x[1]));
-    for (int i = 2 ; i<=number ; i++)
-    {
-        slope[i]=((y[i+1]-y[i])/(x[i+1]-x[i]));
-
-        for (int p =2 ; p <=number ;p++){
-
-            if (x[i-1]==x[i] && y[i-1]==y[i]) { re +=1 ; break; } // get redundant of dip point
-            if(x[i+1]-x[i] !=0 && slope[i]==slope[i-1]) { re +=1 ;break; } // getting redundant point of slope
-            if (x[i+1]-x[i]==0 && y[i+1]-y[i]!=0 && x[i]-x[i-1]==0 && y[i]-y[i-1]!=0 ){  re+=1;   ; break; }// get redundant of x-x =0
-
-            // xr[repeater] = x[i];yr[repeater] =y[i];repeater +=1 ;
-            break ;
-        }}
-    //for (int i=1 ;i<repeater ; i++) { cout << "X = " << xr[i] << endl;cout << "y = " << yr[i] << endl; }
-    return re ;
-}}
+>>> from os import listdir
+>>> from os.path import isfile, join
+>>> onlyfiles = [f for f in listdir(".") if isfile(join(".", f))]
+>>> for file in onlyfiles:
+...     data = open(file,'rb').read()
+...     if data[0] == '\xFF' and data[16] == '\x00' and data[32] == '\x03' and data[48] == '\x06' and data[64] == '\x0C' and data[80] == '\x12' and data[96] == '\x04' and data[112] == '\x12' and data[128] == '\x12' and data[144] == '\x12' and data[160] == '\x00' and data[176] == '\x01' and data[192] == '\x00' and data[208] == '\xC4' and data[224] == '\x03' and data[240] == '\x07':
+...         print(file)
+...
+7F4428
 ```
 
+So we have the right file `7F4428`, open it with our program to get the flag
 
-## Learn More
-
- For Project Code , Visit  [Project Repository ](https://github.com/MohamedRazzk/structure_polygon_mathematical_operators/).
+` Flag is Captured ` >>> `D80103060B120712121211FF00000512`
