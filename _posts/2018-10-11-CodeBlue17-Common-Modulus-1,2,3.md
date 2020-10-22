@@ -159,7 +159,10 @@ for i in range(1900, 2048):
 ```
 
 ## Solution
-` Flag is Captured ` >>> ```shell
- CBCTF{6ac2afd2fc108894db8ab21d1e30d3f3}
+` Flag is Captured ` >>> 
+```shell 
+CBCTF{6ac2afd2fc108894db8ab21d1e30d3f3}
 CBCTF{d65718235c137a94264f16d3a51fefa1}
-CBCTF{b5c96e00cb90d11ec6eccdc58ef0272d} ``` 
+CBCTF{b5c96e00cb90d11ec6eccdc58ef0272d} 
+```
+
