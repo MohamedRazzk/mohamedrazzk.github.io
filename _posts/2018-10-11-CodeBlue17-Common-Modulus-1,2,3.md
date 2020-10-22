@@ -42,11 +42,13 @@ Then gcd (e1,e2) = d , this means that `a` and `b` exists such that e1a + e2b = 
 
 This is usefull since: 
 
-$$ C_B^{s_1}*C_C^{s_2}&=(M^{e_B})^{s_1}*(M^{e_C})^{s_2}\\
+$$ \begin{align}
+C_B^{s_1}*C_C^{s_2}&=(M^{e_B})^{s_1}*(M^{e_C})^{s_2}\\
 &=M^{e_Bs_1}*M^{e_Cs_2}\\
 &=M^{e_Bs_1+e_Cs_2}\\
 &=M^1\\
-&=M $$
+&=M
+\end{align} $$
 
 
 
