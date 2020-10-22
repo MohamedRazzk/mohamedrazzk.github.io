@@ -33,12 +33,12 @@ The challenge title was pretty self explanatory.
 textbook RSA is vulnerable to [Common Modulus Attack](https://crypto.stackexchange.com/questions/16283/how-to-use-common-modulus-attack/16285#16285) 
 
 
-RSA works like the following c=m^e mod N
+RSA works like the following $$ c = m^e \mod N $$
 If you encrypt the same message with the same `N` like:
-C1 = M^e1 mod N
-C2 = M^e2 mod N
+$$ C_1 = M^{e_1} \mod N $$
+$$ C_2 = M^{e_2} \mod N $$
 
-Then gcd (e1,e2) = d , this means that `a` and `b` exists such that e1a + e2b = d.
+Then $$ \gcd(e_1, e_2)=d $$ , this means that `a` and `b` exists such that $$ e_1a + e_2b=d $$.
 
 This is usefull since: 
 
@@ -50,7 +50,12 @@ C_B^{s_1}*C_C^{s_2}&=(M^{e_B})^{s_1}*(M^{e_C})^{s_2}\\
 &=M
 \end{align} $$
 
+In the case where $$ e_1 $$ and $$ e_2 $$ don’t share any factor, $$ \gcd(e_1, e_2)=1 $$ so $$ M^d = M^1 = M $$ .
+In the case where $$ e_1 $$ and $$ e_2 $$ share some factors, we end up with $$ M^d $$. 
+Common Modulus 1 was the first easy case.
 
+In Common Modulus 2 both the exponents were multiplied by $$ 3 $$, so $$ d=3 then M^d=M^3 $$
+Luckily our $$ M^3 $$ is smaller than our N so we can retrive the flag by applying the cube-root.
 
 This crypto challenge is based on the [Hastad’s broadcast attack](https://en.wikipedia.org/wiki/Coppersmith's_attack#H.C3.A5stad.27s_broadcast_attack).
 
