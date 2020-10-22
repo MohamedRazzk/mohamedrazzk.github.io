@@ -11,7 +11,7 @@ tags:
 published: true
 comments: true
 math: true
-pin: true
+pin: false
 ---
 
 ## Inroduction
