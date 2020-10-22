@@ -155,4 +155,4 @@ I used this simple script to achieve it
 
 So we have the right file `7F4428`, open it with our program to get the flag
 
-` Flag is Captured ` >>> `D80103060B120712121211FF00000512`
+` Flag is Captured ` >> `D80103060B120712121211FF00000512`

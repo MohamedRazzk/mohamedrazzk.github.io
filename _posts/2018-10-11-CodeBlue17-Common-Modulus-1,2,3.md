@@ -1,7 +1,7 @@
 ---
 title:  CodeBlue Crypto 17 - Common Modulus 1,2,3
 author: Razzk
-date: '2018-09-05 14:10:00 +0800'
+date: '2018-10-11 14:10:00 +0800'
 categories:
   - Cryptography Engineering 
   - CodeBlue-CTF
@@ -159,7 +159,8 @@ for i in range(1900, 2048):
 ```
 
 ## Solution
-` Flag is Captured ` >>> 
+
+` Flag is Captured ` >>
 ```shell 
 CBCTF{6ac2afd2fc108894db8ab21d1e30d3f3}
 CBCTF{d65718235c137a94264f16d3a51fefa1}

@@ -314,4 +314,4 @@ while True:
 
 ```
 
-` Flag is Captured ` >>> `{well_keep_training_yourself}`
+` Flag is Captured ` >> `{well_keep_training_yourself}`
