@@ -41,7 +41,9 @@ But then the sequence changes, we take the `R` output from the round function an
 
 This image shows an example on 3 blocks of data, the output cypertext is made of `cypher0`, `cypher1`. `L2` won’t be printed
 
-[Desktop View](/assets/img/sample/larryscheme.png)
+---
+[upload-image](/assets/img/sample/upload-image.png)
+---
 
 To decrypt this we need to bruteforce all the possible 6bit last blocks (`L2` in the image), decrypt all the blocks and check if the plaintext is good use the previous des pyhton script and the bruteforce the plain text 
 
