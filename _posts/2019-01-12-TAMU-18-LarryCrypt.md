@@ -28,7 +28,7 @@ A binary executable called larrycrypt was provided.
 ## Writeup
 
 We tried some input for the `larrycrypt` binary and we noticed that it was always using `Mu` as key, no matter what was the `-K` parameter.
-It was likely some bug, but then the [SimpleDES challenge](https://razzk.net/posts/TAMU-18-LarryCrypt/)  we just solved came to our minds.
+It was likely some bug, but then the [SimpleDES challenge](https://razzk.net/posts/TAMU-18-SimpleDES/)  we just solved came to our minds.
 
 The binary was using the same key as the other challenge’s example.
 So we thought it was using the same algorithm, but it wasn’t the case.
