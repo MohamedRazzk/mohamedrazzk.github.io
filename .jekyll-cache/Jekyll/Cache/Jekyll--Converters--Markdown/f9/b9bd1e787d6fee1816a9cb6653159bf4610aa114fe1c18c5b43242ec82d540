@@ -1,0 +1,322 @@
+I"uk<h2 id="inroduction">Inroduction</h2>
+
+<blockquote>
+  <p>Structure Polygons shaps calculators writen in c++ can do multiple operation on multiple polygon given by points on one string .</p>
+</blockquote>
+
+<h2 id="project-description">Project Description</h2>
+
+<p>a program to do operations on polygons data. The program use a defined string format to represent polygons. All polygons will be in one line input. For example:
+<code class="language-plaintext highlighter-rouge">Polygons=[(1,1),(4,1),(4,5),(1,5);(3,4),(6,4),(6,12),(3,12)]</code></p>
+
+<h2 id="polygons-data">Polygons Data</h2>
+
+<p>The Polygons line contains a list of polygons data separated by ‘;’. Fields of a Polygon is represented by a set of points separated by ‘,’. The number of polygons are up to 1000 polygon. Each polygon has up to 100 points.</p>
+
+<h3 id="definition-of-redundant-point">Definition of Redundant Point</h3>
+
+<p>A redundant point is a point of the polygon points that can be deleted without change in the polygon shape. Like</p>
+
+<ul>
+  <li>Examples of Redundant Point
+    <ul>
+      <li>(1,1),<code class="language-plaintext highlighter-rouge">(2,1)</code>,(4,1),(4,3),(1,3)</li>
+      <li>(1,2),(4,2),<code class="language-plaintext highlighter-rouge">(4,2)</code>,(4,8),(1,8)</li>
+      <li>(1,2),(4,2),<code class="language-plaintext highlighter-rouge">(4,2)</code>,<code class="language-plaintext highlighter-rouge">(4,2)</code>,(4,8),(1,8)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>In the second case two neighbor identical points any one of them can be redundant (you should select only the second one). If more than two points are identical and follow each other, all of them are redundant except the first point of them.</p>
+
+<h3 id="intersecting-polygons">Intersecting Polygons</h3>
+
+<p>Intersecting Polygons are polygons sharing common area, side, or point(s).</p>
+
+<h3 id="connected-polygons">Connected Polygons</h3>
+
+<p>Two Connected Polygons are polygons that are intersecting or polygons which have path from one to the other through intersecting polygons.</p>
+
+<h2 id="operations">Operations</h2>
+
+<p>When the program start, the user enters one Polygons Line in the defined above format then followed by one or more operations from the below table (each operation in a line). The program ends when it reads Quit operation.</p>
+
+<h3 id="operations-table">Operations Table</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Operation</th>
+      <th style="text-align: left">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Number_Polygons</td>
+      <td style="text-align: left">Print the number of polygons.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Total_Number_Points</td>
+      <td style="text-align: left">Print the total number of points in all polygons.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Minimum_X</td>
+      <td style="text-align: left">Print the minimum X value of all points.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Maximum_X</td>
+      <td style="text-align: left">Print the maximum X value of all points</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Minimum_Y</td>
+      <td style="text-align: left">Print the minimum Y value of all points.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Maximum_Y</td>
+      <td style="text-align: left">Print the maximum Y value of all points</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Enclosing_Rectangle</td>
+      <td style="text-align: left">Print the minimum Enclosing Rectangle that includes all polygons inside it</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Total_Redundant_Points</td>
+      <td style="text-align: left">The number of Redundant points in all polygons</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Polygon_Points <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">List all points of the nth polygon (neglecting redundant points) n start from 1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Point_Polygons <code class="language-plaintext highlighter-rouge">(2,1)</code></td>
+      <td style="text-align: left">List all polygons IDs(ID is 1 for the first polygon, 2 for the second polygon,…)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Polygons_Points More <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">List Polygons having more than n points excluding redundant points where n is an integer.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Polygons_Points Less <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">List Polygons having less than n points excluding redundant points where n is an integer.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Polygons_Points Equal<code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">List Polygons having exactly n points excluding redundant points where n is an integer.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Points_Polygons More <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">List all Points that are in the list of more than n polygons where n is an integer.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Points_Polygons Less <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">List all Points that are in the list of less than n polygons where n is an integer.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Points_Polygons Equal<code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">List all Points that are in the list of less than n polygons where n is an integer.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Polygon_Perimeter <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">Print the perimeter of the nth polygon.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Triangles</td>
+      <td style="text-align: left">List all Polygon IDs of polygons that are triangles.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Rectangles</td>
+      <td style="text-align: left">List all Polygon IDs of polygons that are rectangles.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">List_Trapezoid</td>
+      <td style="text-align: left">List all Polygon IDs of polygons that are trapezoid.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Inside_Rectangle<code class="language-plaintext highlighter-rouge">Edge Points</code></td>
+      <td style="text-align: left">List all Polygon IDs of polygons that are inside the given rectangle.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Inside_Circle  e.g<code class="language-plaintext highlighter-rouge">(1,2),5</code></td>
+      <td style="text-align: left">List all Polygon IDs of polygons that are inside the given Circle <code class="language-plaintext highlighter-rouge">Center</code> <code class="language-plaintext highlighter-rouge">Raduis</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Polygon_Area <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">Print the polygon area of the nth polygon</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Polygons_Area_Range <code class="language-plaintext highlighter-rouge">n1</code>,<code class="language-plaintext highlighter-rouge">n2</code></td>
+      <td style="text-align: left">List all Polygon IDs of polygons that have area &lt;= minArea<code class="language-plaintext highlighter-rouge">n1</code> and &gt;=maxArea.<code class="language-plaintext highlighter-rouge">n1</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Polygons_Enclosing_Point <code class="language-plaintext highlighter-rouge">p</code></td>
+      <td style="text-align: left">List all Polygon IDs of polygons that have the point <code class="language-plaintext highlighter-rouge">p</code> (1,2) inside it</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Is_Intersecting i,j</td>
+      <td style="text-align: left">Print TRUE if ith polygon intersects the jth polygon</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Intersecting_Group 3,5,6</td>
+      <td style="text-align: left">Print TRUE if the list of polygon are all intersecting with each other</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Largest_Intersecting_Pair</td>
+      <td style="text-align: left">Print the two IDs of polygons that are intersecting and having the largest sum of area.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Largest_Rectangle_Inside <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">Print the largest rectangle that can inside the nth polygon.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Largest_Circle_Inside <code class="language-plaintext highlighter-rouge">n</code></td>
+      <td style="text-align: left">Print the largest circle that can inside the nth polygon.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="code---some-funcations">Code - Some Funcations</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td> --><td class="rouge-code"><pre><span class="kt">int</span> <span class="nf">Number_Polygons</span> <span class="p">(</span><span class="n">string</span> <span class="n">input</span> <span class="p">,</span> <span class="kt">int</span> <span class="n">input_length</span><span class="p">)</span> <span class="c1">//function to get polygons number</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">polygon_numbers</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">input_length</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">input</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span> <span class="sc">';'</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">polygon_numbers</span> <span class="o">=</span> <span class="n">polygon_numbers</span> <span class="o">+</span><span class="mi">1</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span>  <span class="n">polygon_numbers</span><span class="o">+</span><span class="mi">1</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td> --><td class="rouge-code"><pre><span class="kt">int</span> <span class="nf">Total_Number_Points</span> <span class="p">(</span><span class="n">string</span> <span class="n">input</span> <span class="p">,</span> <span class="kt">int</span> <span class="n">input_length</span><span class="p">)</span> <span class="c1">//function to get total number of points</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">number_point</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">input_length</span>  <span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="sc">'('</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">number_point</span> <span class="o">=</span> <span class="n">number_point</span>  <span class="o">+</span> <span class="mi">1</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span>  <span class="n">number_point</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+</pre></td> --><td class="rouge-code"><pre><span class="kt">int</span> <span class="nf">Total_Number_Points</span> <span class="p">(</span><span class="n">string</span> <span class="n">input</span> <span class="p">,</span> <span class="kt">int</span> <span class="n">input_length</span><span class="p">)</span> <span class="c1">//function to get total number of points</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">Redundant_points</span> <span class="p">(</span><span class="n">string</span> <span class="n">points</span> <span class="p">,</span> <span class="kt">int</span> <span class="n">number</span> <span class="p">)</span> <span class="c1">// function to number of redundant at polygon</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">arc</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span> <span class="kt">int</span> <span class="n">col</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span><span class="kt">int</span> <span class="n">inarc</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span><span class="kt">int</span>   <span class="n">counter1</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="kt">int</span>  <span class="n">counter2</span><span class="o">=</span> <span class="mi">0</span> <span class="p">;</span><span class="kt">int</span> <span class="n">counter3</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span><span class="kt">int</span> <span class="n">colrep</span> <span class="o">=</span> <span class="mi">1</span>  <span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span> <span class="p">;</span>  <span class="n">i</span><span class="o">&lt;=</span> <span class="n">points</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="p">;</span><span class="n">i</span><span class="o">++</span> <span class="p">)</span> <span class="c1">//getting place of that "(" and  ")" and ","</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span> <span class="sc">'('</span><span class="p">){</span><span class="n">counter1</span><span class="o">=</span><span class="n">counter1</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>  <span class="n">arc</span><span class="p">[</span><span class="n">counter1</span><span class="p">]</span><span class="o">=</span><span class="n">i</span> <span class="p">;}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span> <span class="sc">','</span><span class="p">){</span><span class="n">counter2</span><span class="o">=</span><span class="n">counter2</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>  <span class="n">col</span><span class="p">[</span><span class="n">counter2</span><span class="p">]</span><span class="o">=</span><span class="n">i</span> <span class="p">;}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span> <span class="sc">')'</span><span class="p">){</span><span class="n">counter3</span><span class="o">=</span><span class="n">counter3</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">inarc</span><span class="p">[</span><span class="n">counter3</span><span class="p">]</span><span class="o">=</span><span class="n">i</span> <span class="p">;}</span>
+    <span class="p">}</span>
+    <span class="kt">float</span> <span class="n">x</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span> <span class="kt">float</span> <span class="n">y</span> <span class="p">[</span><span class="mi">1000</span><span class="p">];</span> <span class="kt">float</span> <span class="n">slope</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span><span class="n">number</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+
+        <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">atof</span><span class="p">(</span><span class="n">points</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">arc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">col</span><span class="p">[</span><span class="n">colrep</span><span class="p">]</span><span class="o">-</span><span class="n">arc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="n">c_str</span><span class="p">())</span> <span class="p">;</span>
+        <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">atof</span><span class="p">(</span><span class="n">points</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">col</span><span class="p">[</span><span class="n">colrep</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">inarc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">col</span><span class="p">[</span><span class="n">colrep</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="n">c_str</span><span class="p">())</span>  <span class="p">;</span>
+        <span class="n">colrep</span> <span class="o">+=</span><span class="mi">2</span> <span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">float</span> <span class="n">xr</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span> <span class="kt">float</span> <span class="n">yr</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span>
+    <span class="n">xr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">yr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="c1">//  int repeater = 2 ;</span>
+    <span class="kt">int</span> <span class="n">re</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">slope</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">number</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">slope</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">p</span> <span class="o">=</span><span class="mi">2</span> <span class="p">;</span> <span class="n">p</span> <span class="o">&lt;=</span><span class="n">number</span> <span class="p">;</span><span class="n">p</span><span class="o">++</span><span class="p">){</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span> <span class="n">re</span> <span class="o">+=</span><span class="mi">1</span> <span class="p">;</span> <span class="k">break</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// get redundant of dip point</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">slope</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">slope</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span> <span class="n">re</span> <span class="o">+=</span><span class="mi">1</span> <span class="p">;</span><span class="k">break</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// getting redundant point of slope</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span> <span class="p">){</span>  <span class="n">re</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>   <span class="p">;</span> <span class="k">break</span><span class="p">;</span> <span class="p">}</span><span class="c1">// get redundant of x-x =0</span>
+
+            <span class="c1">// xr[repeater] = x[i];yr[repeater] =y[i];repeater +=1 ;</span>
+            <span class="k">break</span> <span class="p">;</span>
+        <span class="p">}}</span>
+    <span class="c1">//for (int i=1 ;i&lt;repeater ; i++) { cout &lt;&lt; "X = " &lt;&lt; xr[i] &lt;&lt; endl;cout &lt;&lt; "y = " &lt;&lt; yr[i] &lt;&lt; endl; }</span>
+    <span class="k">return</span> <span class="n">re</span> <span class="p">;</span>
+<span class="p">}}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="learn-more">Learn More</h2>
+
+<p>For Project Code , Visit  <a href="https://github.com/MohamedRazzk/structure_polygon_mathematical_operators/">Project Repository </a>.</p>
+:ET

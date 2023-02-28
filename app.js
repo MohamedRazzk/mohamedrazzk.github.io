@@ -1,12 +1,43 @@
----
-layout: compress
-# Chirpy v2.2
-# https://github.com/cotes2020/jekyll-theme-chirpy
-# © 2020 Cotes Chung
-# MIT Licensed
----
+const $notification = $('#notification');
+const $btnRefresh = $('#notification .toast-body>button');
 
-/* Registering Service Worker */
-if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('{{ "/sw.js" | relative_url }}');
-};
+if ('serviceWorker' in navigator) {
+    /* Registering Service Worker */
+    navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+
+            /* in case the user ignores the notification */
+            if (registration.waiting) {
+                $notification.toast('show');
+            }
+
+            registration.addEventListener('updatefound', () => {
+                registration.installing.addEventListener('statechange', () => {
+                    if (registration.waiting) {
+                        if (navigator.serviceWorker.controller) {
+                            $notification.toast('show');
+                        }
+                    }
+                });
+            });
+
+            $btnRefresh.click(() => {
+                if (registration.waiting) {
+                    registration.waiting.postMessage('SKIP_WAITING');
+                }
+                $notification.toast('hide');
+            });
+        });
+
+    let refreshing = false;
+
+    /* Detect controller change and refresh all the opened tabs */
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+            window.location.reload();
+            refreshing = true;
+        }
+    });
+}
+
+

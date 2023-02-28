@@ -1,0 +1,258 @@
+I"�c<h2 id="inroduction">Inroduction</h2>
+
+<blockquote>
+  <p>RITSEC CTF 2018 - CictroHash</p>
+</blockquote>
+
+<h2 id="description">Description</h2>
+
+<p>For this challenge you must implement the described Hash Function and then find a collision of two strings.
+Once a collision is found send both strings to fun.ritsec.club:8003 as a HTTP POST request like below:</p>
+
+<p>curl -X POST http://fun.ritsec.club:8003/checkCollision <br />
+–header “Content-Type: application/json” <br />
+–data ‘{“str1”: “”, “str2”: “”}’
+If the strings are a valid collision then the flag will be returned.</p>
+
+<p>NOTE: requests to this server are being rate-limited for obvious reasons.</p>
+
+<p>Author: Cictrone</p>
+
+<h2 id="writeup">Writeup</h2>
+
+<p>This crypto challenge was really original and very interesting.</p>
+
+<p>We started writing the implementation for the CictroHash sponge function, after some ranting for the incomplete specification and the incorrect text vector.
+Then we based our output on the hashes returned by the server.</p>
+
+<p>Once our implementation was exact, we noticed that the permutation function only acted on some bits and didn’t provide enough <a href="https://en.wikipedia.org/wiki/Confusion_and_diffusion">diffusion</a> so the <a href="https://en.wikipedia.org/wiki/Avalanche_effect">avalanche effect</a> was minimum in some cases.</p>
+
+<p>For example you can see how “HELLOWORLD” and “HELLOWORLD0” only differs by 2 bit in the 3rd byte</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td> --><td class="rouge-code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">CictroHash</span><span class="p">.</span><span class="n">hash</span><span class="p">(</span><span class="s">"HELLOWORLD"</span><span class="p">)</span>
+<span class="s">"91f1c05e"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">CictroHash</span><span class="p">.</span><span class="n">hash</span><span class="p">(</span><span class="s">"HELLOWORLD0"</span><span class="p">)</span>
+<span class="s">"91f1005e"</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="err">'</span><span class="p">{</span><span class="o">:</span><span class="mi">08</span><span class="n">b</span><span class="p">}</span><span class="err">'</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="mh">0x00</span><span class="p">)</span>
+<span class="err">'</span><span class="mo">00000000</span><span class="err">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="err">'</span><span class="p">{</span><span class="o">:</span><span class="mi">08</span><span class="n">b</span><span class="p">}</span><span class="err">'</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="mh">0xc0</span><span class="p">)</span>
+<span class="err">'</span><span class="mi">11000000</span><span class="err">'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h2 id="cictrohash-script">CictroHash Script</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+</pre></td> --><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">CictroHash</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="n">self</span><span class="p">.</span><span class="nf">initialize_state</span><span class="p">()</span>
+
+	<span class="k">def</span> <span class="nf">initialize_state</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">31</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">167</span><span class="p">],</span> <span class="p">[</span><span class="mi">38</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">248</span><span class="p">]]</span>
+
+	<span class="k">def</span> <span class="nf">r</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+		<span class="n">text</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">pad</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nf">prepare</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+		<span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="mi">4</span><span class="p">)]</span>
+		<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+			<span class="n">self</span><span class="p">.</span><span class="nf">absorb</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">()</span>
+
+	<span class="k">def</span> <span class="nf">pad</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+		<span class="n">t</span><span class="p">.</span><span class="nf">extend</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">-</span> <span class="nf">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span><span class="p">))</span>
+		<span class="k">return</span> <span class="n">t</span>
+
+	<span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+		<span class="k">return</span> <span class="p">[</span><span class="nf">ord</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">text</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">absorb</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">P</span><span class="p">):</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">xor</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+			<span class="n">self</span><span class="p">.</span><span class="nf">round</span><span class="p">()</span>
+
+	<span class="k">def</span> <span class="nf">squeeze</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="s">'{:02x}'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+	<span class="k">def</span> <span class="nf">xor</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+		<span class="k">return</span> <span class="p">[</span><span class="n">c</span> <span class="o">^</span> <span class="n">p</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span>
+
+	<span class="k">def</span> <span class="nf">round</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="n">self</span><span class="p">.</span><span class="nf">alfa</span><span class="p">()</span>
+		<span class="n">self</span><span class="p">.</span><span class="nf">beta</span><span class="p">()</span>
+		<span class="n">self</span><span class="p">.</span><span class="nf">gamma</span><span class="p">()</span>
+		<span class="n">self</span><span class="p">.</span><span class="nf">delta</span><span class="p">()</span>
+		<span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span>
+
+	<span class="k">def</span> <span class="nf">alfa</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">beta</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+			<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">^=</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">gamma</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="n">S1</span> <span class="o">=</span> <span class="p">[</span>
+			<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
+			<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]]</span>
+		<span class="p">]</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">S1</span>
+
+	<span class="k">def</span> <span class="nf">delta</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">rol</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">rol</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">rol</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">rol</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">ror</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">ror</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">ror</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+		<span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">ror</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+
+	<span class="k">def</span> <span class="nf">rol</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+		<span class="nf">return </span><span class="p">((</span><span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">c</span> <span class="o">&gt;&gt;</span> <span class="mi">7</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xff</span>
+
+	<span class="k">def</span> <span class="nf">ror</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+		<span class="nf">return </span><span class="p">((</span><span class="n">c</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xff</span>
+
+
+<span class="c1"># Testing
+</span><span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">[</span>
+	<span class="p">(</span><span class="s">"HELLOWORLD"</span><span class="p">,</span> <span class="s">"91f1c05e"</span><span class="p">),</span>
+	<span class="p">(</span><span class="s">"HELLOWORLD0"</span><span class="p">,</span> <span class="s">"91f1005e"</span><span class="p">),</span>
+<span class="p">]:</span>
+	<span class="n">h</span> <span class="o">=</span> <span class="nc">CictroHash</span><span class="p">()</span>
+	<span class="nf">assert</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="nf">hash</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># "Differential" analysis
+</span><span class="n">XOR</span> <span class="o">=</span> <span class="p">[</span><span class="mb">0b00000001</span><span class="p">,</span> <span class="mb">0b00000010</span><span class="p">,</span> <span class="mb">0b00001000</span><span class="p">,</span> <span class="mb">0b00010000</span><span class="p">,</span> <span class="mb">0b00100000</span><span class="p">,</span> <span class="mb">0b01000000</span><span class="p">,</span> <span class="mb">0b10000000</span><span class="p">]</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="p">[</span><span class="s">"H"</span><span class="p">,</span> <span class="s">"E"</span><span class="p">,</span> <span class="s">"L"</span><span class="p">,</span> <span class="s">"L"</span><span class="p">,</span> <span class="s">"O"</span><span class="p">,</span> <span class="s">"W"</span><span class="p">,</span> <span class="s">"O"</span><span class="p">,</span> <span class="s">"R"</span><span class="p">,</span> <span class="s">"L"</span><span class="p">,</span> <span class="s">"D"</span><span class="p">]</span>
+<span class="n">found</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">XOR</span><span class="p">:</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">seed</span><span class="p">)):</span>
+		<span class="n">tmp</span> <span class="o">=</span> <span class="n">seed</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
+		<span class="n">h</span> <span class="o">=</span> <span class="nc">CictroHash</span><span class="p">()</span>
+		<span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">chr</span><span class="p">(</span><span class="nf">ord</span><span class="p">(</span><span class="n">seed</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">^</span> <span class="n">x</span><span class="p">)</span>
+		<span class="n">chash</span> <span class="o">=</span> <span class="n">h</span><span class="p">.</span><span class="nf">hash</span><span class="p">(</span><span class="s">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+		<span class="k">if</span> <span class="n">found</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">chash</span><span class="p">):</span>
+			<span class="nf">print</span><span class="p">(</span><span class="n">chash</span><span class="p">,</span> <span class="n">found</span><span class="p">[</span><span class="n">chash</span><span class="p">],</span> <span class="s">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+			<span class="nf">exit</span><span class="p">()</span>
+		<span class="n">found</span><span class="p">[</span><span class="n">chash</span><span class="p">]</span> <span class="o">=</span> <span class="s">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>  
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bitflip one bit at a time the pre-image searching for a collision</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td> --><td class="rouge-code"><pre><span class="mi">91</span><span class="n">f1405e</span> <span class="o">-</span> <span class="n">HENLOWORLD</span> <span class="o">-</span> <span class="n">HELLOWGRLD</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET

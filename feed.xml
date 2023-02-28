@@ -1,63 +1,277 @@
----
-layout: compress
-# Atom Feed, reference: https://validator.w3.org/feed/docs/atom.html
-# v2.0
-# https://github.com/cotes2020/jekyll-theme-chirpy
-# © 2019 Cotes Chung
-# MIT License
----
 
-{% capture source %}
+
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <id>{{ site.url }}</id>
-  <title>{{ site.title }}</title>
-  <subtitle>{{ site.description }}</subtitle>
-  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>http://localhost:4000/</id>
+  <title>Razzk</title>
+  <subtitle>Cyber Security Engineering Blog.</subtitle>
+  <updated>2023-02-28T06:04:01+02:00</updated>
   <author>
-    <name>{{ site.author }}</name>
-    <uri>{{ site.url }}</uri>
+    <name>Mohamed F. Razzk</name>
+    <uri>http://localhost:4000/</uri>
   </author>
-  <link href="/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="{{ site.url }}" rel="alternate" type="text/html" />
-  <generator uri="https://jekyllrb.com/" version="{{ jekyll.version }}">Jekyll</generator>
-  <rights> © {{ 'now' | date: '%Y' }} {{ site.author }} </rights>
-  <icon>{{ site.baseurl }}/assets/img/favicons/favicon.ico</icon>
-  <logo>{{ site.baseurl }}/assets/img/favicons/favicon-96x96.png</logo>
+  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="http://localhost:4000/"/>
+  <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
+  <rights> © 2023 Mohamed F. Razzk </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
-{% for post in site.posts limit: 5 %}
-  {% assign post_absolute_url = site.url | append: post.url %}
+
+  
   <entry>
-    <title>{{ post.title }}</title>
-    <link href="{{ post_absolute_url }}" rel="alternate" type="text/html" title="{{ post.title }}" />
-    <published>{{ post.date | date_to_xmlschema }}</published>
-  {% if post.seo.date_modified %}
-    <updated>{{ post.seo.date_modified | date_to_xmlschema }}</updated>
-  {% else %}
-    <updated>{{ site.time | date_to_xmlschema }}</updated>
-  {% endif %}
-    <id>{{ post_absolute_url }}</id>
-    <content src="{{ post_absolute_url }}" />
+    <title>InsomniHackTeaser Crypto 18 - Rule86</title>
+    <link href="http://localhost:4000/posts/InsomniHack-Teaser-18/" rel="alternate" type="text/html" title="InsomniHackTeaser Crypto 18 - Rule86" />
+    <published>2020-07-13T08:10:00+02:00</published>
+  
+    <updated>2020-07-13T08:10:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/InsomniHack-Teaser-18/</id>
+    <content src="http://localhost:4000/posts/InsomniHack-Teaser-18/" />
     <author>
-      <name>{{ site.author }}</name>
+      <name>Razzk</name>
     </author>
 
-  {% if post.categories %}
-    {% for category in post.categories %}
-    <category term="{{ category }}" />
-    {% endfor %}
-  {% endif %}
+  
+    
+    <category term="Cryptography Engineering" />
+    
+  
 
-  {% if post.summary %}
-    <summary>{{ post.summary | strip }}</summary>
-  {% else %}
+  
     <summary>
-      {% assign content = post.content %}
-      {% include no-linenos.html %}
-      {{ content | strip_html | truncate: 200 }}</summary>
-  {% endif %}
+      
+
+
+
+
+
+      Inroduction
+
+
+  InsomniHack Teaser CTF 2018 - Rule86
+
+
+Description
+
+Kevin is working on a new synchronous stream cipher, but he has been re-using his key.
+
+In this challenge, you are provided with 4 files:
+
+hint.gif.enc          - An encrypted GIF
+super_cipher.py.enc   - An encrypted python script
+rule86.txt            - A cleartext file 
+rule86.txt.enc        - The encrypted version of said fi...
+    </summary>
+  
 
   </entry>
-{% endfor %}
+
+  
+  <entry>
+    <title>RITSEC Crypto 18 - CictroHash</title>
+    <link href="http://localhost:4000/posts/RITSEC-18-CictroHash/" rel="alternate" type="text/html" title="RITSEC Crypto 18 - CictroHash" />
+    <published>2019-03-18T08:10:00+02:00</published>
+  
+    <updated>2019-03-18T08:10:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/RITSEC-18-CictroHash/</id>
+    <content src="http://localhost:4000/posts/RITSEC-18-CictroHash/" />
+    <author>
+      <name>Razzk</name>
+    </author>
+
+  
+    
+    <category term="Cryptography Engineering" />
+    
+    <category term="RITSEC-CTF" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Inroduction
+
+
+  RITSEC CTF 2018 - CictroHash
+
+
+Description
+
+For this challenge you must implement the described Hash Function and then find a collision of two strings.
+Once a collision is found send both strings to fun.ritsec.club:8003 as a HTTP POST request like below:
+
+curl -X POST http://fun.ritsec.club:8003/checkCollision 
+–header “Content-Type: application/json” 
+–data ‘{“str1”: “”, “str2”...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>TAMU Crypto 18 - LarryCrypt</title>
+    <link href="http://localhost:4000/posts/TAMU-18-LarryCrypt/" rel="alternate" type="text/html" title="TAMU Crypto 18 - LarryCrypt" />
+    <published>2019-01-12T08:10:00+02:00</published>
+  
+    <updated>2019-01-12T08:10:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/TAMU-18-LarryCrypt/</id>
+    <content src="http://localhost:4000/posts/TAMU-18-LarryCrypt/" />
+    <author>
+      <name>Razzk</name>
+    </author>
+
+  
+    
+    <category term="Cryptography Engineering" />
+    
+    <category term="TAMU-CTF" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Inroduction
+
+
+  TAMU CTF 2018 - LarryCrypt
+
+
+Description
+
+A binary executable called larrycrypt was provided.
+
+./larrycrypt -R 4 -K “V3c70R” flag
+
+Writeup
+
+We tried some input for the larrycrypt binary and we noticed that it was always using Mu as key, no matter what was the -K parameter.
+It was likely some bug, but then the SimpleDES challenge  we just solved came to our minds.
+
+The binary was...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>TAMU Crypto 18 - SimpleDES</title>
+    <link href="http://localhost:4000/posts/TAMU-18-SimpleDES/" rel="alternate" type="text/html" title="TAMU Crypto 18 - SimpleDES" />
+    <published>2018-12-06T08:10:00+02:00</published>
+  
+    <updated>2018-12-06T08:10:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/TAMU-18-SimpleDES/</id>
+    <content src="http://localhost:4000/posts/TAMU-18-SimpleDES/" />
+    <author>
+      <name>Razzk</name>
+    </author>
+
+  
+    
+    <category term="Cryptography Engineering" />
+    
+    <category term="TAMU-CTF" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Inroduction
+
+
+  TAMU CTF 2018 - SimpleDES
+
+
+Description
+
+Larry is working on an encryption algorithm based on DES. He hasn’t worked out all the kinks yet, but he thinks it works. Your job is to confirm that you can decrypt a message, given the algorithm and parameters used.
+
+The organizer gave us a specification about this simpleDES cipher:
+
+ His system works as follows:
+    - Choose a plaintex...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>CodeBlue Crypto 17 - Common Modulus 1,2,3</title>
+    <link href="http://localhost:4000/posts/CodeBlue17-Common-Modulus-1,2,3/" rel="alternate" type="text/html" title="CodeBlue Crypto 17 - Common Modulus 1,2,3" />
+    <published>2018-10-11T08:10:00+02:00</published>
+  
+    <updated>2018-10-11T08:10:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/CodeBlue17-Common-Modulus-1,2,3/</id>
+    <content src="http://localhost:4000/posts/CodeBlue17-Common-Modulus-1,2,3/" />
+    <author>
+      <name>Razzk</name>
+    </author>
+
+  
+    
+    <category term="Cryptography Engineering" />
+    
+    <category term="CodeBlue-CTF" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Inroduction
+
+
+  CodeBlue CTF 2017 - Common Modulus 1,2,3
+
+
+Description
+
+Common Modulus 1: Simple Common Modulus Attack
+Common Modulus 2: Common Modulus Attack with common exponent divisor
+Common Modulus 3: Common Modulus Attack with common exponent divisor + message padding
+
+Writeup
+
+The challenge title was pretty self explanatory.
+
+textbook RSA is vulnerable to Common Modulus Attack
+
+RSA works...
+    </summary>
+  
+
+  </entry>
+
 </feed>
-{% endcapture %}
-{{ source | replace: '&', '&amp;' }}
+
+

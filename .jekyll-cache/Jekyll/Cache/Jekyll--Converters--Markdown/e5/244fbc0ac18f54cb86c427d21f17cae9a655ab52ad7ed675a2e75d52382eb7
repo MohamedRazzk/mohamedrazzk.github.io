@@ -1,0 +1,236 @@
+I"�i<h2 id="inroduction">Inroduction</h2>
+
+<blockquote>
+  <p>Cyber Talents - Cloak and dagger reverse engineering ahram canadian competition.</p>
+</blockquote>
+
+<h2 id="description">Description</h2>
+
+<p>Dot net binary file given as excutable file called cloak and dagger with description of “ Open The right file to get the flag “ Reverse it to get the flag</p>
+
+<h2 id="file">File</h2>
+
+<p>For downloading excutable file , Visit  <a href="https://github.com/MohamedRazzk/mohamedrazzk.github.io/blob/master/_posts/Data/Cloak%20and%20Dagger.exe">Cloak And Dagger.exe </a>.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>The file is .NET binary (you may use Detect It Easy to determine the type of a binary)
+On running it, it just lets you select a file and makes a messagebox with You have the wrong file!
+So let’s load it to dnSpy
+At the decompiled class form1 there are two methods</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="k">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">HexStr</span><span class="p">(</span><span class="n">byte</span><span class="p">[]</span> <span class="n">p</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="kt">char</span><span class="p">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">Length</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">];</span>
+			<span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'0'</span><span class="p">;</span>
+			<span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'x'</span><span class="p">;</span>
+			<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+			<span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+			<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="n">byte</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">byte</span><span class="p">)(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">);</span>
+				<span class="n">array</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)((</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">55</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">48</span><span class="p">));</span>
+				<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">byte</span><span class="p">)(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mi">15</span><span class="p">);</span>
+				<span class="n">array</span><span class="p">[</span><span class="o">++</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)((</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">55</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">48</span><span class="p">));</span>
+				<span class="n">i</span><span class="o">++</span><span class="p">;</span>
+				<span class="n">num</span><span class="o">++</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="k">return</span> <span class="k">new</span> <span class="nf">string</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+		<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Which just converts a byte array into hex value ‘a’ —&gt; ‘0x61’ (you can use https://dotnetfiddle.net/ or the interactive c# plugin at dnSpy to test c# code snippets)
+Also we have</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+</pre></td><td class="rouge-code"><pre><span class="k">private</span> <span class="kt">void</span> <span class="nf">button1_Click</span><span class="p">(</span><span class="n">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">openFileDialog1</span><span class="p">.</span><span class="n">ShowDialog</span><span class="p">()</span> <span class="o">==</span> <span class="n">DialogResult</span><span class="p">.</span><span class="n">OK</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="n">string</span> <span class="n">fileName</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="n">openFileDialog1</span><span class="p">.</span><span class="n">FileName</span><span class="p">;</span>
+				<span class="k">try</span>
+				<span class="p">{</span>
+					<span class="n">string</span> <span class="n">b</span> <span class="o">=</span> <span class="s">"FF0003060C1204121212000100C40307"</span><span class="p">;</span>
+					<span class="n">BinaryReader</span> <span class="n">binaryReader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BinaryReader</span><span class="p">(</span><span class="k">new</span> <span class="n">FileStream</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="n">FileMode</span><span class="p">.</span><span class="n">Open</span><span class="p">,</span> <span class="n">FileAccess</span><span class="p">.</span><span class="n">Read</span><span class="p">,</span> <span class="n">FileShare</span><span class="p">.</span><span class="n">None</span><span class="p">));</span>
+					<span class="n">binaryReader</span><span class="p">.</span><span class="n">BaseStream</span><span class="p">.</span><span class="n">Position</span> <span class="o">=</span> <span class="mi">0L</span><span class="p">;</span>
+					<span class="n">byte</span><span class="p">[]</span> <span class="n">p</span> <span class="o">=</span> <span class="n">binaryReader</span><span class="p">.</span><span class="n">ReadBytes</span><span class="p">(</span><span class="mi">256</span><span class="p">);</span>
+					<span class="n">binaryReader</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+					<span class="n">string</span> <span class="n">a</span> <span class="o">=</span> <span class="n">string</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="k">new</span> <span class="n">string</span><span class="p">[]</span>
+					<span class="p">{</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">66</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">98</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">130</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">162</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">194</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">226</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">258</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">290</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">322</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">354</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">386</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">418</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">482</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+					<span class="p">});</span>
+					<span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="n">string</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="k">new</span> <span class="n">string</span><span class="p">[]</span>
+					<span class="p">{</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">132</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">164</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">196</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">228</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">260</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">292</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">324</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">356</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">388</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">420</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">452</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+						<span class="n">Form1</span><span class="p">.</span><span class="n">HexStr</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="mi">484</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+					<span class="p">});</span>
+					<span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
+					<span class="p">{</span>
+						<span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="s">"Flag is: "</span> <span class="o">+</span> <span class="n">str</span><span class="p">);</span>
+					<span class="p">}</span>
+					<span class="k">else</span>
+					<span class="p">{</span>
+						<span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="s">"You have the wrong file!"</span><span class="p">);</span>
+					<span class="p">}</span>
+				<span class="p">}</span>
+				<span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span><span class="p">)</span>
+				<span class="p">{</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Which does this:</p>
+
+<ol>
+  <li>Open a new file with OpenFileDialog component and read it into byte array p</li>
+  <li>Define a string b with value <code class="language-plaintext highlighter-rouge">FF0003060C1204121212000100C40307</code></li>
+  <li>
+    <p>Define a string a with the concatenation of hex values of bytes at offsets<code class="language-plaintext highlighter-rouge"> {0,16,32,48,64,80,96,112,128,144,160,176,192,208,224,240}</code> (remember that <code class="language-plaintext highlighter-rouge">HexStr</code> returns <code class="language-plaintext highlighter-rouge">0x</code> at the start of the hex string and every byte has a corresponding 2-chars hex string)</p>
+  </li>
+  <li>Also defines another string <code class="language-plaintext highlighter-rouge">str</code> like a but at different offsets
+Makes a check if array string a equals string b and if true it will print the flag to be string <code class="language-plaintext highlighter-rouge">str&lt;&gt;</code></li>
+</ol>
+
+<p>We can deduce some things here; first it will crash if opened a file with size &lt; 242 bytes (484 / 2)
+Second, our target here is to open the right file nothing else
+Once I understood that, I knew that the right file is somehow embedded in the binary
+I used binwalk to extract any embedded or appended files with this command ` binwalk –dd=”.*” “Cloak and Dagger.exe”<code class="language-plaintext highlighter-rouge">
+The extracted files are so many, so we cannot just open them one by one to get the write file
+Rather than that I will loop through all files reading them and check for the bytes at the previous indices array to be equal to the hex array </code>FF0003060C1204121212000100C40307`</p>
+
+<p>I used this simple script to achieve it</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">from</span> <span class="n">os</span> <span class="n">import</span> <span class="n">listdir</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">from</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span> <span class="n">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onlyfiles</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="n">in</span> <span class="n">listdir</span><span class="p">(</span><span class="s">"."</span><span class="p">)</span> <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s">"."</span><span class="p">,</span> <span class="n">f</span><span class="p">))]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">file</span> <span class="n">in</span> <span class="n">onlyfiles</span><span class="o">:</span>
+<span class="p">...</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="err">'</span><span class="n">rb</span><span class="err">'</span><span class="p">).</span><span class="n">read</span><span class="p">()</span>
+<span class="p">...</span>     <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\xFF'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x00'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x03'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">48</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x06'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x0C'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">80</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x12'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">96</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x04'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">112</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x12'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x12'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">144</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x12'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">160</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x00'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">176</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x01'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">192</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x00'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">208</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\xC4'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">224</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x03'</span> <span class="n">and</span> <span class="n">data</span><span class="p">[</span><span class="mi">240</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'\x07'</span><span class="o">:</span>
+<span class="p">...</span>         <span class="n">print</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="mi">7</span><span class="n">F4428</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>So we have the right file <code class="language-plaintext highlighter-rouge">7F4428</code>, open it with our program to get the flag</p>
+
+<p>` Flag is Captured ` » <code class="language-plaintext highlighter-rouge">D80103060B120712121211FF00000512</code></p>
+:ET

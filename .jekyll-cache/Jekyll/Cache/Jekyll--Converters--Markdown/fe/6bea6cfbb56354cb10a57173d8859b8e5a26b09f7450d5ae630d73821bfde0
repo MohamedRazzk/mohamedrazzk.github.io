@@ -1,0 +1,64 @@
+I"�<h2 id="inroduction">Inroduction</h2>
+
+<blockquote>
+  <p>Qiwi-Infosec - Crypto 300_1 shared key in decimal.</p>
+</blockquote>
+
+<h2 id="description">Description</h2>
+
+<p>Alice, Bob, and Cameron want to get shared key by Diffie-Hellman method. Their public keys respectively are g^a mod p, g^b mod p, g^c mod p. Will Alice and Bob be able to get shared key without Cameron’s private key? The flag is the first 20 digits of the shared key in decimal form</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>p:8986158661930085086019708402870402191114171745913160469454315876556947370642799226714405016920875594030192024506376929926694545081888689821796050434591251;
+g: 6;
+a: 230;
+b: 250;
+g^c:5361617800833598741530924081762225477418277010142022622731688158297759621329407070985497917078988781448889947074350694220209769840915705739528359582454617;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="solution">Solution</h2>
+
+<p>This is a simple crypto challenge on the <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Diffie-Hellman key exchange protocol</a>.</p>
+
+<p>In <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange#Operation_with_more_than_two_parties">this scenario</a> we have 3 user that need to agree on a shared key and we need to calculate it.</p>
+
+<p>The formula for the shared key is: <code class="language-plaintext highlighter-rouge">g^abc</code> mod p.</p>
+
+<p>We have Alice and Bob private key (<code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>), but we have only Cameron public key <code class="language-plaintext highlighter-rouge">g^c mod p</code></p>
+
+<p>We can’t compute directly <code class="language-plaintext highlighter-rouge">(((g)^a)^b)^c mod p</code> but we can compute the shared key this way:
+<code class="language-plaintext highlighter-rouge">((g^c)^a)^b mod p</code></p>
+
+<p>The python-sage script that get the flag</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="c1">#!/usr/bin/env sage -python
+</span>
+<span class="n">p</span><span class="o">=</span><span class="mi">8986158661930085086019708402870402191114171745913160469454315876556947370642799226714405016920875594030192024506376929926694545081888689821796050434591251</span>
+<span class="n">g</span><span class="o">=</span><span class="mi">6</span>
+<span class="n">a</span><span class="o">=</span><span class="mi">230</span>
+<span class="n">b</span><span class="o">=</span><span class="mi">250</span>
+<span class="n">gc</span><span class="o">=</span><span class="mi">5361617800833598741530924081762225477418277010142022622731688158297759621329407070985497917078988781448889947074350694220209769840915705739528359582454617</span>
+
+<span class="n">gca</span> <span class="o">=</span> <span class="p">(</span><span class="n">gc</span><span class="o">**</span><span class="n">a</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
+<span class="n">gcab</span> <span class="o">=</span> <span class="p">(</span><span class="n">gca</span><span class="o">**</span><span class="n">b</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
+
+<span class="k">print</span> <span class="s">"flag: "</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">gcab</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>` Flag is Captured ` » <code class="language-plaintext highlighter-rouge">38058349620867258480</code></p>
+
+:ET

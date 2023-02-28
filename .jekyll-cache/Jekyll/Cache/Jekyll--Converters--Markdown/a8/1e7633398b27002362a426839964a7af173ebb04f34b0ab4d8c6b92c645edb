@@ -1,0 +1,151 @@
+I"5<h2 id="inroduction">Inroduction</h2>
+
+<blockquote>
+  <p>TAMU CTF 2018 - LarryCrypt</p>
+</blockquote>
+
+<h2 id="description">Description</h2>
+
+<p>A binary executable called larrycrypt was provided.</p>
+
+<p>./larrycrypt -R 4 -K “V3c70R” flag</p>
+
+<h2 id="writeup">Writeup</h2>
+
+<p>We tried some input for the <code class="language-plaintext highlighter-rouge">larrycrypt</code> binary and we noticed that it was always using <code class="language-plaintext highlighter-rouge">Mu</code> as key, no matter what was the <code class="language-plaintext highlighter-rouge">-K</code> parameter.
+It was likely some bug, but then the <a href="https://razzk.net/posts/TAMU-18-SimpleDES/">SimpleDES challenge</a>  we just solved came to our minds.</p>
+
+<p>The binary was using the same key as the other challenge’s example.
+So we thought it was using the same algorithm, but it wasn’t the case.</p>
+
+<p>Larrycrypt was using 6bit blocks for the ciphertext.
+The first block of ciphertext was the same as SimpleDES’s first 6bit of cyphertext when using the same key and the same number of rounds. With some more reverse engineering we figured out that larrycrypt was taking the first 12 bits of plaintext, splitting them into <code class="language-plaintext highlighter-rouge">L0</code> and <code class="language-plaintext highlighter-rouge">R0</code>, performing the round function and printing only the resulting <code class="language-plaintext highlighter-rouge">L1</code>.
+So they were using the same round function.</p>
+
+<p>But then the sequence changes, we take the <code class="language-plaintext highlighter-rouge">R</code> output from the round function and use it as <code class="language-plaintext highlighter-rouge">L</code> for the next round along with the next block of ciphertext.</p>
+
+<p>This image shows an example on 3 blocks of data, the output cypertext is made of <code class="language-plaintext highlighter-rouge">cypher0</code>, <code class="language-plaintext highlighter-rouge">cypher1</code>. <code class="language-plaintext highlighter-rouge">L2</code> won’t be printed</p>
+
+<p><img src="/assets/img/sample/larryscheme.png" alt="upload-image" /></p>
+
+<p>To decrypt this we need to bruteforce all the possible 6bit last blocks (<code class="language-plaintext highlighter-rouge">L2</code> in the image), decrypt all the blocks and check if the plaintext is good use the previous des pyhton script and the bruteforce the plain text</p>
+
+<h2 id="scripts">Scripts</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><!-- <td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+</pre></td> --><td class="rouge-code"><pre><span class="kn">import</span> <span class="n">simple_des</span>
+
+<span class="k">class</span> <span class="nc">SimplerDES</span><span class="p">(</span><span class="n">simple_des</span><span class="p">.</span><span class="n">SimpleDES</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">simple_des</span><span class="p">.</span><span class="nf">to_twelve</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">split_block</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">.</span><span class="nf">extend</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="nf">schedule_key</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">Lr</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nf">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">Rr</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">rounds</span><span class="p">):</span>
+                <span class="n">sk</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">subkeys</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">r</span><span class="p">]</span>
+                <span class="n">Lr</span><span class="p">,</span> <span class="n">Rr</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="n">Lr</span><span class="p">,</span> <span class="n">Rr</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">Lr</span><span class="p">)</span>
+            <span class="n">Lr</span> <span class="o">=</span> <span class="n">Rr</span>
+        <span class="k">return</span> <span class="n">result</span>
+    
+    <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">last</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="nf">invert_key</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">Lr</span> <span class="o">=</span> <span class="n">last</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">i</span> <span class="o">-=</span><span class="mi">1</span> <span class="c1"># hotfix
+</span>            <span class="n">Rr</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">rounds</span><span class="p">):</span>
+                <span class="n">sk</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">subkeys</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">r</span><span class="p">]</span>
+                <span class="n">Lr</span><span class="p">,</span> <span class="n">Rr</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="n">Lr</span><span class="p">,</span> <span class="n">Rr</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">Lr</span><span class="p">)</span>
+            <span class="n">Lr</span> <span class="o">=</span> <span class="n">Rr</span>
+        <span class="n">result</span><span class="p">.</span><span class="nf">reverse</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="kn">import</span> <span class="n">itertools</span>
+
+<span class="c1">#fi = open('flags.txt','w')
+</span>
+<span class="n">ciphertext</span> <span class="o">=</span> <span class="p">[</span><span class="s">'000101'</span><span class="p">,</span><span class="s">'000000'</span><span class="p">,</span><span class="s">'100111'</span><span class="p">,</span><span class="s">'011001'</span><span class="p">,</span><span class="s">'101110'</span><span class="p">,</span><span class="s">'011101'</span><span class="p">,</span><span class="s">'001110'</span><span class="p">,</span><span class="s">'101111'</span><span class="p">,</span><span class="s">'010001'</span><span class="p">,</span><span class="s">'101111'</span><span class="p">,</span><span class="s">'110000'</span><span class="p">,</span><span class="s">'001001'</span><span class="p">,</span><span class="s">'110010'</span><span class="p">,</span><span class="s">'111011'</span><span class="p">,</span><span class="s">'110111'</span><span class="p">,</span><span class="s">'010001'</span><span class="p">,</span><span class="s">'000100'</span><span class="p">,</span><span class="s">'101011'</span><span class="p">,</span><span class="s">'100010'</span><span class="p">,</span><span class="s">'100010'</span><span class="p">,</span><span class="s">'000001'</span><span class="p">,</span><span class="s">'010100'</span><span class="p">,</span><span class="s">'001111'</span><span class="p">,</span><span class="s">'010010'</span><span class="p">,</span><span class="s">'111110'</span><span class="p">,</span><span class="s">'001110'</span><span class="p">,</span><span class="s">'000111'</span><span class="p">]</span>
+<span class="n">key</span> <span class="o">=</span> <span class="n">simple_des</span><span class="p">.</span><span class="nf">ascii_to_bin</span><span class="p">(</span><span class="s">"Mu"</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nc">SimplerDES</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">rounds</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itertools</span><span class="p">.</span><span class="nf">product</span><span class="p">(</span><span class="s">'01'</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+    <span class="n">decrypted</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">decrypt</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="s">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="s">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">decrypted</span><span class="p">)</span>
+    <span class="c1">#fi.write(l+'\n')
+</span>    <span class="k">if</span> <span class="n">simple_des</span><span class="p">.</span><span class="nf">bin_to_ascii</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">:])</span> <span class="o">==</span> <span class="s">'}'</span><span class="p">:</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="s">'010001'</span><span class="o">+</span><span class="n">l</span> <span class="c1"># fix the starting G  :D
+</span>        <span class="nf">print</span><span class="p">(</span><span class="n">simple_des</span><span class="p">.</span><span class="nf">bin_to_ascii</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+    
+<span class="c1">#fi.close()    
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET
