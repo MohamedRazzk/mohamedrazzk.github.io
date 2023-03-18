@@ -1,42 +1,42 @@
 const resource = [
     /* --- CSS --- */
-    '/assets/css/style.css',
+    '/https://razzk.net/assets/css/style.css',
 
     /* --- PWA --- */
-    '/app.js',
-    '/sw.js',
+    '/https://razzk.net/app.js',
+    '/https://razzk.net/sw.js',
 
     /* --- HTML --- */
-    '/index.html',
-    '/404.html',
+    '/https://razzk.net/index.html',
+    '/https://razzk.net/404.html',
 
     
-        '/categories/',
+        '/https://razzk.net/categories/',
     
-        '/tags/',
+        '/https://razzk.net/tags/',
     
-        '/archives/',
+        '/https://razzk.net/archives/',
     
-        '/about/',
+        '/https://razzk.net/about/',
     
 
     /* --- Favicons & compressed JS --- */
     
     
-        '/assets/img/favicons/android-chrome-192x192.png',
-        '/assets/img/favicons/android-chrome-512x512.png',
-        '/assets/img/favicons/apple-touch-icon.png',
-        '/assets/img/favicons/favicon-16x16.png',
-        '/assets/img/favicons/favicon-32x32.png',
-        '/assets/img/favicons/favicon.ico',
-        '/assets/img/favicons/mstile-150x150.png',
-        '/assets/js/dist/categories.min.js',
-        '/assets/js/dist/commons.min.js',
-        '/assets/js/dist/home.min.js',
-        '/assets/js/dist/misc.min.js',
-        '/assets/js/dist/page.min.js',
-        '/assets/js/dist/post.min.js',
-        '/assets/js/dist/pvreport.min.js'
+        '/https://razzk.net/assets/img/favicons/Rawfav/Cloud-Cyber-Icon-Identity-1.png',
+        '/https://razzk.net/assets/img/favicons/Rawfav/favicon.ico',
+        '/https://razzk.net/assets/img/favicons/android-chrome-192x192.png',
+        '/https://razzk.net/assets/img/favicons/android-chrome-512x512.png',
+        '/https://razzk.net/assets/img/favicons/apple-touch-icon.png',
+        '/https://razzk.net/assets/img/favicons/favicon-16x16.png',
+        '/https://razzk.net/assets/img/favicons/favicon-32x32.png',
+        '/https://razzk.net/assets/img/favicons/favicon.ico',
+        '/https://razzk.net/assets/img/favicons/mstile-150x150.png',
+        '/https://razzk.net/assets/js/dist/categories.min.js',
+        '/https://razzk.net/assets/js/dist/commons.min.js',
+        '/https://razzk.net/assets/js/dist/misc.min.js',
+        '/https://razzk.net/assets/js/dist/page.min.js',
+        '/https://razzk.net/assets/js/dist/post.min.js'
 ];
 
 /* The request url with below domain will be cached */
