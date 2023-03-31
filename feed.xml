@@ -1,33 +1,90 @@
 
 
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <id>http://localhost:4000/https://razzk.net/</id>
+  <id>http://localhost:4000/</id>
   <title>Razzk</title>
   <subtitle>Computer and Network Security Blog</subtitle>
-  <updated>2023-03-18T17:09:55+02:00</updated>
+  <updated>2023-03-31T13:16:01+02:00</updated>
   <author>
     <name>Mohamed F. Razzk</name>
-    <uri>http://localhost:4000/https://razzk.net/</uri>
+    <uri>http://localhost:4000/</uri>
   </author>
-  <link rel="self" type="application/atom+xml" href="http://localhost:4000/https://razzk.net/feed.xml"/>
+  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="en"
-    href="http://localhost:4000/https://razzk.net/"/>
+    href="http://localhost:4000/"/>
   <generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator>
   <rights> © 2023 Mohamed F. Razzk </rights>
-  <icon>https://razzk.net/assets/img/favicons/favicon.ico</icon>
-  <logo>https://razzk.net/assets/img/favicons/favicon-96x96.png</logo>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
 
   
   <entry>
+    <title>Python in Cybersecurity - Port Scanner</title>
+    <link href="http://localhost:4000/posts/Python-In-Cybersecurity-Port-Scanner/" rel="alternate" type="text/html" title="Python in Cybersecurity - Port Scanner" />
+    <published>2023-03-31T05:33:00+02:00</published>
+  
+    <updated>2023-03-31T05:33:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/Python-In-Cybersecurity-Port-Scanner/</id>
+    <content src="http://localhost:4000/posts/Python-In-Cybersecurity-Port-Scanner/" />
+    <author>
+      <name>Razzk</name>
+    </author>
+
+  
+    
+    <category term="Python in Cybersecurity" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Description
+
+How to write adavanced port scanner in python
+
+Video
+
+
+
+Code
+import socket
+import re
+from termcolor import colored
+import optparse
+from threading import *
+
+
+
+def portscanner(host, port):
+    try:
+        socket.setdefaulttimeout(5)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        if sock.connect_ex((host,port)):
+            print(colored("port %d closed" % ...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>InsomniHackTeaser Crypto 18 - Rule86</title>
-    <link href="http://localhost:4000/https://razzk.net/posts/InsomniHack-Teaser-18/" rel="alternate" type="text/html" title="InsomniHackTeaser Crypto 18 - Rule86" />
+    <link href="http://localhost:4000/posts/InsomniHack-Teaser-18/" rel="alternate" type="text/html" title="InsomniHackTeaser Crypto 18 - Rule86" />
     <published>2020-07-13T08:10:00+02:00</published>
   
     <updated>2020-07-13T08:10:00+02:00</updated>
   
-    <id>http://localhost:4000/https://razzk.net/posts/InsomniHack-Teaser-18/</id>
-    <content src="http://localhost:4000/https://razzk.net/posts/InsomniHack-Teaser-18/" />
+    <id>http://localhost:4000/posts/InsomniHack-Teaser-18/</id>
+    <content src="http://localhost:4000/posts/InsomniHack-Teaser-18/" />
     <author>
       <name>Razzk</name>
     </author>
@@ -70,13 +127,13 @@ rule86.txt.enc        - The encrypted version of said fi...
   
   <entry>
     <title>RITSEC Crypto 18 - CictroHash</title>
-    <link href="http://localhost:4000/https://razzk.net/posts/RITSEC-18-CictroHash/" rel="alternate" type="text/html" title="RITSEC Crypto 18 - CictroHash" />
+    <link href="http://localhost:4000/posts/RITSEC-18-CictroHash/" rel="alternate" type="text/html" title="RITSEC Crypto 18 - CictroHash" />
     <published>2019-03-18T08:10:00+02:00</published>
   
     <updated>2019-03-18T08:10:00+02:00</updated>
   
-    <id>http://localhost:4000/https://razzk.net/posts/RITSEC-18-CictroHash/</id>
-    <content src="http://localhost:4000/https://razzk.net/posts/RITSEC-18-CictroHash/" />
+    <id>http://localhost:4000/posts/RITSEC-18-CictroHash/</id>
+    <content src="http://localhost:4000/posts/RITSEC-18-CictroHash/" />
     <author>
       <name>Razzk</name>
     </author>
@@ -119,13 +176,13 @@ curl -X POST http://fun.ritsec.club:8003/checkCollision
   
   <entry>
     <title>TAMU Crypto 18 - LarryCrypt</title>
-    <link href="http://localhost:4000/https://razzk.net/posts/TAMU-18-LarryCrypt/" rel="alternate" type="text/html" title="TAMU Crypto 18 - LarryCrypt" />
+    <link href="http://localhost:4000/posts/TAMU-18-LarryCrypt/" rel="alternate" type="text/html" title="TAMU Crypto 18 - LarryCrypt" />
     <published>2019-01-12T08:10:00+02:00</published>
   
     <updated>2019-01-12T08:10:00+02:00</updated>
   
-    <id>http://localhost:4000/https://razzk.net/posts/TAMU-18-LarryCrypt/</id>
-    <content src="http://localhost:4000/https://razzk.net/posts/TAMU-18-LarryCrypt/" />
+    <id>http://localhost:4000/posts/TAMU-18-LarryCrypt/</id>
+    <content src="http://localhost:4000/posts/TAMU-18-LarryCrypt/" />
     <author>
       <name>Razzk</name>
     </author>
@@ -172,13 +229,13 @@ The binary was...
   
   <entry>
     <title>TAMU Crypto 18 - SimpleDES</title>
-    <link href="http://localhost:4000/https://razzk.net/posts/TAMU-18-SimpleDES/" rel="alternate" type="text/html" title="TAMU Crypto 18 - SimpleDES" />
+    <link href="http://localhost:4000/posts/TAMU-18-SimpleDES/" rel="alternate" type="text/html" title="TAMU Crypto 18 - SimpleDES" />
     <published>2018-12-06T08:10:00+02:00</published>
   
     <updated>2018-12-06T08:10:00+02:00</updated>
   
-    <id>http://localhost:4000/https://razzk.net/posts/TAMU-18-SimpleDES/</id>
-    <content src="http://localhost:4000/https://razzk.net/posts/TAMU-18-SimpleDES/" />
+    <id>http://localhost:4000/posts/TAMU-18-SimpleDES/</id>
+    <content src="http://localhost:4000/posts/TAMU-18-SimpleDES/" />
     <author>
       <name>Razzk</name>
     </author>
@@ -213,60 +270,6 @@ The organizer gave us a specification about this simpleDES cipher:
 
  His system works as follows:
     - Choose a plaintex...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>CodeBlue Crypto 17 - Common Modulus 1,2,3</title>
-    <link href="http://localhost:4000/https://razzk.net/posts/CodeBlue17-Common-Modulus-1,2,3/" rel="alternate" type="text/html" title="CodeBlue Crypto 17 - Common Modulus 1,2,3" />
-    <published>2018-10-11T08:10:00+02:00</published>
-  
-    <updated>2018-10-11T08:10:00+02:00</updated>
-  
-    <id>http://localhost:4000/https://razzk.net/posts/CodeBlue17-Common-Modulus-1,2,3/</id>
-    <content src="http://localhost:4000/https://razzk.net/posts/CodeBlue17-Common-Modulus-1,2,3/" />
-    <author>
-      <name>Razzk</name>
-    </author>
-
-  
-    
-    <category term="Cryptography Engineering" />
-    
-    <category term="CodeBlue-CTF" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Inroduction
-
-
-  CodeBlue CTF 2017 - Common Modulus 1,2,3
-
-
-Description
-
-Common Modulus 1: Simple Common Modulus Attack
-Common Modulus 2: Common Modulus Attack with common exponent divisor
-Common Modulus 3: Common Modulus Attack with common exponent divisor + message padding
-
-Writeup
-
-The challenge title was pretty self explanatory.
-
-textbook RSA is vulnerable to Common Modulus Attack
-
-RSA works...
     </summary>
   
 
