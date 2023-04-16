@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Razzk</title>
   <subtitle>Computer and Network Security Blog</subtitle>
-  <updated>2023-03-31T13:16:01+02:00</updated>
+  <updated>2023-04-16T17:11:13+02:00</updated>
   <author>
     <name>Mohamed F. Razzk</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,59 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Python in Cybersecurity - Advanced Port Scanner - Scan &amp; Defense In Depth</title>
+    <link href="http://localhost:4000/posts/Python-in-Cybersecurity-Advanced-Port-Scanner-Scan-&amp;-Defense-In-Depth/" rel="alternate" type="text/html" title="Python in Cybersecurity - Advanced Port Scanner - Scan &amp; Defense In Depth" />
+    <published>2023-04-16T05:33:00+02:00</published>
+  
+    <updated>2023-04-16T05:33:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/Python-in-Cybersecurity-Advanced-Port-Scanner-Scan-&amp;-Defense-In-Depth/</id>
+    <content src="http://localhost:4000/posts/Python-in-Cybersecurity-Advanced-Port-Scanner-Scan-&amp;-Defense-In-Depth/" />
+    <author>
+      <name>Razzk</name>
+    </author>
+
+  
+    
+    <category term="Python in Cybersecurity" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Description
+
+Advanced Port Scanner - Scan &amp;amp; Defense In Depth All type of tcp scans, banner graping, udp scans, craft tcp packet, thread pool
+
+Video
+
+
+
+Code
+from scapy.layers.inet import IP,TCP,ICMP,UDP
+from scapy.volatile import RandShort
+from scapy.sendrecv import sr1
+import array
+import socket
+import re
+from termcolor import colored
+import argparse
+import concurrent.futures
+import time
+im...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -221,55 +274,6 @@ We tried some input for the larrycrypt binary and we noticed that it was always 
 It was likely some bug, but then the SimpleDES challenge  we just solved came to our minds.
 
 The binary was...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>TAMU Crypto 18 - SimpleDES</title>
-    <link href="http://localhost:4000/posts/TAMU-18-SimpleDES/" rel="alternate" type="text/html" title="TAMU Crypto 18 - SimpleDES" />
-    <published>2018-12-06T08:10:00+02:00</published>
-  
-    <updated>2018-12-06T08:10:00+02:00</updated>
-  
-    <id>http://localhost:4000/posts/TAMU-18-SimpleDES/</id>
-    <content src="http://localhost:4000/posts/TAMU-18-SimpleDES/" />
-    <author>
-      <name>Razzk</name>
-    </author>
-
-  
-    
-    <category term="Cryptography Engineering" />
-    
-    <category term="TAMU-CTF" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Inroduction
-
-
-  TAMU CTF 2018 - SimpleDES
-
-
-Description
-
-Larry is working on an encryption algorithm based on DES. He hasn’t worked out all the kinks yet, but he thinks it works. Your job is to confirm that you can decrypt a message, given the algorithm and parameters used.
-
-The organizer gave us a specification about this simpleDES cipher:
-
- His system works as follows:
-    - Choose a plaintex...
     </summary>
   
 
