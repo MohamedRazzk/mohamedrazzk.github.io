@@ -1,4 +1,4 @@
-I"— <h2 id="inroduction">Inroduction</h2>
+I"ý¦<h2 id="inroduction">Inroduction</h2>
 
 <blockquote>
   <p>InsomniHack Teaser CTF 2018 - Rule86</p>
@@ -30,8 +30,8 @@ we started by getting the keystream from the <code class="language-plaintext hig
 4
 5
 6
-</pre></td><td class="rouge-code"><pre><span class="n">p1</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'rule86.txt'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
-<span class="n">c1</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'rule86.txt.enc'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+</pre></td><td class="rouge-code"><pre><span class="n">p1</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">rule86.txt</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">rule86.txt.enc</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
 
 <span class="n">keystream</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">c1</span><span class="p">):</span>
@@ -46,7 +46,7 @@ we started by getting the keystream from the <code class="language-plaintext hig
 5
 6
 7
-</pre></td><td class="rouge-code"><pre><span class="n">c2</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'super_cipher.py.enc'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+</pre></td><td class="rouge-code"><pre><span class="n">c2</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">super_cipher.py.enc</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
 <span class="n">p2</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">keystream</span><span class="p">,</span> <span class="n">c2</span><span class="p">):</span>
@@ -120,18 +120,18 @@ we started by getting the keystream from the <code class="language-plaintext hig
 21
 </pre></td><td class="rouge-code"><pre><span class="c1">#!/usr/bin/python3
 </span>
-<span class="n">l1</span><span class="o">=</span><span class="p">[</span><span class="sa">b</span><span class="s">'</span><span class="se">\x00</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x2b</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x55</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x80</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\xaa</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\xd5</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\xff</span><span class="s">'</span><span class="p">]</span>
-<span class="n">l2</span><span class="o">=</span><span class="p">[</span><span class="sa">b</span><span class="s">'</span><span class="se">\x00</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x33</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x66</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x99</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\xcc</span><span class="s">'</span><span class="p">,</span> <span class="sa">b</span><span class="s">'</span><span class="se">\xff</span><span class="s">'</span><span class="p">]</span>
+<span class="n">l1</span><span class="o">=</span><span class="p">[</span><span class="sa">b</span><span class="sh">'</span><span class="se">\x00</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x2b</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x55</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x80</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\xaa</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\xd5</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\xff</span><span class="sh">'</span><span class="p">]</span>
+<span class="n">l2</span><span class="o">=</span><span class="p">[</span><span class="sa">b</span><span class="sh">'</span><span class="se">\x00</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x33</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x66</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x99</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\xcc</span><span class="sh">'</span><span class="p">,</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\xff</span><span class="sh">'</span><span class="p">]</span>
 
-<span class="n">header</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'</span><span class="se">\x47\x49\x46\x38\x39\x61\x67\x02\xE6\x00\xF7\x00\x00</span><span class="s">'</span>
+<span class="n">header</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="se">\x47\x49\x46\x38\x39\x61\x67\x02\xE6\x00\xF7\x00\x00</span><span class="sh">'</span>
 
-<span class="n">ary</span> <span class="o">=</span> <span class="sa">b</span><span class="s">''</span> <span class="o">+</span> <span class="n">header</span>
+<span class="n">ary</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">''</span> <span class="o">+</span> <span class="n">header</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l2</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">l1</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">l2</span><span class="p">:</span>
             <span class="n">ary</span> <span class="o">+=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span>
 
-<span class="n">gne</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'hint_full.gif'</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">)</span>
+<span class="n">gne</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">hint_full.gif</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">wb</span><span class="sh">'</span><span class="p">)</span>
 <span class="n">gne</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">ary</span><span class="p">)</span>
 <span class="n">gne</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
 
@@ -185,10 +185,10 @@ we started by getting the keystream from the <code class="language-plaintext hig
 36
 </pre></td><td class="rouge-code"><pre><span class="c1">#!/usr/bin/python3
 </span>
-<span class="n">p1</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'rule86.txt'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
-<span class="n">c1</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'rule86.txt.enc'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
-<span class="n">c2</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'super_cipher.py.enc'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
-<span class="n">c3</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'hint.gif.enc'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">rule86.txt</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">rule86.txt.enc</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">super_cipher.py.enc</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+<span class="n">c3</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">hint.gif.enc</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
 
 <span class="c1"># get the first part of the keystream
 </span><span class="n">keystream</span> <span class="o">=</span> <span class="p">[]</span>
@@ -200,14 +200,14 @@ we started by getting the keystream from the <code class="language-plaintext hig
 <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">keystream</span><span class="p">,</span> <span class="n">c3</span><span class="p">):</span>
   <span class="n">p3</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="p">)</span>
     
-<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="s">'hint2.gif'</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">hint2.gif</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">wb</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
   <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="nf">bytes</span><span class="p">(</span><span class="n">p3</span><span class="p">))</span>
 
 <span class="c1"># run giffer.py to generate hint_full.gif
 </span>
 <span class="c1"># get another keystream part
 </span><span class="n">keystream</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">gif</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'hint_full.gif'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+<span class="n">gif</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">hint_full.gif</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">c3</span><span class="p">,</span> <span class="n">gif</span><span class="p">):</span>
   <span class="n">keystream</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="p">)</span>
 
@@ -217,7 +217,7 @@ we started by getting the keystream from the <code class="language-plaintext hig
   <span class="n">p2</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="nf">bytes</span><span class="p">(</span><span class="n">p2</span><span class="p">).</span><span class="nf">decode</span><span class="p">())</span>
     
-<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="s">'super_cipher1.py'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">super_cipher1.py</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">w</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
   <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="nf">bytes</span><span class="p">(</span><span class="n">p2</span><span class="p">).</span><span class="nf">decode</span><span class="p">())</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
@@ -316,15 +316,15 @@ If the current y bit is 1, check what value in RULE output 1 and check if that v
     <span class="n">y</span> <span class="o">|=</span> <span class="n">RULE</span><span class="p">[(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">7</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">i</span>
   <span class="k">return</span> <span class="n">y</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'rule86.txt'</span><span class="p">,</span><span class="s">'rb'</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">'rule86.txt.enc'</span><span class="p">,</span><span class="s">'rb'</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">rule86.txt</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">rule86.txt.enc</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">)</span>
 
 <span class="n">plaintext</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">N_BYTES</span><span class="p">)</span>
 <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">N_BYTES</span><span class="p">)</span>
 
 <span class="c1"># print the full keystream
 </span><span class="k">while</span> <span class="n">plaintext</span><span class="p">:</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">.</span><span class="nf">from_bytes</span><span class="p">(</span><span class="n">plaintext</span><span class="p">,</span><span class="s">'little'</span><span class="p">)</span> <span class="o">^</span> <span class="nb">int</span><span class="p">.</span><span class="nf">from_bytes</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span><span class="s">'little'</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">.</span><span class="nf">from_bytes</span><span class="p">(</span><span class="n">plaintext</span><span class="p">,</span><span class="sh">'</span><span class="s">little</span><span class="sh">'</span><span class="p">)</span> <span class="o">^</span> <span class="nb">int</span><span class="p">.</span><span class="nf">from_bytes</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span><span class="sh">'</span><span class="s">little</span><span class="sh">'</span><span class="p">)</span>
   <span class="nf">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
   <span class="n">plaintext</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">N_BYTES</span><span class="p">)</span>
   <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">N_BYTES</span><span class="p">)</span>
@@ -455,7 +455,7 @@ If the current y bit is 1, check what value in RULE output 1 and check if that v
 </span>      <span class="n">x</span> <span class="o">=</span> <span class="n">v</span>                             <span class="c1"># we found our previous x 
 </span>
   <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"Error no valid integer!"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Error no valid integer!</span><span class="sh">"</span><span class="p">)</span>
     <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
           
   <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>           <span class="c1"># fix our x accordingly
@@ -487,19 +487,19 @@ If the current y bit is 1, check what value in RULE output 1 and check if that v
   <span class="n">a</span> <span class="o">=</span> <span class="nf">reverse</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
   <span class="k">if</span> <span class="n">a</span> <span class="o">!=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">'Error in keystream'</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">Error in keystream</span><span class="sh">'</span><span class="p">)</span>
     <span class="nf">exit</span><span class="p">()</span>
-  <span class="nf">print</span><span class="p">(</span><span class="s">'OK ---'</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+  <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">OK ---</span><span class="sh">'</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
   
-<span class="nf">print</span><span class="p">(</span><span class="s">"YOU ROCK! Keystream reversed.</span><span class="se">\n</span><span class="s">Reversing 128 bootstrap rounds..."</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">YOU ROCK! Keystream reversed.</span><span class="se">\n</span><span class="s">Reversing 128 bootstrap rounds...</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># after this you should go 128 block reverse and get the PRNG seed aka FLAG
 </span><span class="n">curr</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">129</span><span class="p">):</span>
   <span class="n">curr</span> <span class="o">=</span> <span class="nf">reverse</span><span class="p">(</span><span class="n">curr</span><span class="p">)</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="s">"128 rounds done.</span><span class="se">\n</span><span class="s">Printing flag...</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">curr</span><span class="p">.</span><span class="nf">to_bytes</span><span class="p">(</span><span class="n">N_BYTES</span><span class="p">,</span><span class="s">'little'</span><span class="p">).</span><span class="nf">decode</span><span class="p">())</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">128 rounds done.</span><span class="se">\n</span><span class="s">Printing flag...</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">curr</span><span class="p">.</span><span class="nf">to_bytes</span><span class="p">(</span><span class="n">N_BYTES</span><span class="p">,</span><span class="sh">'</span><span class="s">little</span><span class="sh">'</span><span class="p">).</span><span class="nf">decode</span><span class="p">())</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 <p>` Flag is Captured `Â Â» <code class="language-plaintext highlighter-rouge">INS{Rule86_is_W0lfr4m_Cha0s}</code></p>
 

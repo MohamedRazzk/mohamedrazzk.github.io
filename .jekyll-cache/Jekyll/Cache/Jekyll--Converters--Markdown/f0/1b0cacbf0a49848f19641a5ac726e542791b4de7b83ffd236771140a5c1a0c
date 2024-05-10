@@ -1,4 +1,4 @@
-I"=<h2 id="inroduction">Inroduction</h2>
+I"@%<h2 id="inroduction">Inroduction</h2>
 
 <blockquote>
   <p>Qiwi-Infosec - Crypto 100_1 cipher text need to be decoded to read the secret message .</p>
@@ -119,32 +119,32 @@
 24
 25
 26
-</pre></td><td class="rouge-code"><pre><span class="n">ciphers</span> <span class="o">=</span> <span class="p">[</span><span class="s">'52112515_4535_331534'</span><span class="p">,</span>
-<span class="s">'442315_321144422453_231143_543445'</span><span class="p">,</span>
-<span class="s">'213431313452_442315_5223244415_411112122444'</span><span class="p">,</span>
-<span class="s">'2533341325_2533341325_331534'</span><span class="p">,</span>
-<span class="s">'442315_21311122_2443_442315_4423244214_31243315'</span><span class="p">]</span>
+</pre></td><td class="rouge-code"><pre><span class="n">ciphers</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">52112515_4535_331534</span><span class="sh">'</span><span class="p">,</span>
+<span class="sh">'</span><span class="s">442315_321144422453_231143_543445</span><span class="sh">'</span><span class="p">,</span>
+<span class="sh">'</span><span class="s">213431313452_442315_5223244415_411112122444</span><span class="sh">'</span><span class="p">,</span>
+<span class="sh">'</span><span class="s">2533341325_2533341325_331534</span><span class="sh">'</span><span class="p">,</span>
+<span class="sh">'</span><span class="s">442315_21311122_2443_442315_4423244214_31243315</span><span class="sh">'</span><span class="p">]</span>
 
-<span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">,</span> <span class="s">'d'</span><span class="p">,</span> <span class="s">'e'</span><span class="p">],</span>
-<span class="p">[</span><span class="s">'f'</span><span class="p">,</span> <span class="s">'g'</span><span class="p">,</span> <span class="s">'h'</span><span class="p">,</span> <span class="s">'i'</span><span class="p">,</span> <span class="s">'k'</span><span class="p">],</span>
-<span class="p">[</span><span class="s">'l'</span><span class="p">,</span> <span class="s">'m'</span><span class="p">,</span> <span class="s">'n'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="s">'p'</span><span class="p">],</span>
-<span class="p">[</span><span class="s">'q'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span> <span class="s">'s'</span><span class="p">,</span> <span class="s">'t'</span><span class="p">,</span> <span class="s">'u'</span><span class="p">],</span>
-<span class="p">[</span><span class="s">'v'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">,</span> <span class="s">'x'</span><span class="p">,</span> <span class="s">'y'</span><span class="p">,</span> <span class="s">'z'</span><span class="p">]]</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">c</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">e</span><span class="sh">'</span><span class="p">],</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">f</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">g</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">h</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">i</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">k</span><span class="sh">'</span><span class="p">],</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">l</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">m</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">n</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">o</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">p</span><span class="sh">'</span><span class="p">],</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">q</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">r</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">s</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">t</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">u</span><span class="sh">'</span><span class="p">],</span>
+<span class="p">[</span><span class="sh">'</span><span class="s">v</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">w</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">x</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">y</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">z</span><span class="sh">'</span><span class="p">]]</span>
 
 <span class="n">plain</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ciphers</span><span class="p">:</span>
-<span class="n">words</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s">'_'</span><span class="p">)</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">_</span><span class="sh">'</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
 <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">word</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
 <span class="n">y</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">word</span><span class="p">[</span><span class="n">num</span><span class="p">])</span>
 <span class="n">x</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">word</span><span class="p">[</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">plain</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
 
-<span class="n">plain</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">'_'</span><span class="p">)</span>
-<span class="n">plain</span><span class="p">[</span><span class="nf">len</span><span class="p">(</span><span class="n">plain</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span>
+<span class="n">plain</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">'</span><span class="s">_</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plain</span><span class="p">[</span><span class="nf">len</span><span class="p">(</span><span class="n">plain</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sh">'</span><span class="se">\n</span><span class="sh">'</span>
 
-<span class="k">print</span> <span class="s">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">plain</span><span class="p">)</span>
+<span class="k">print</span> <span class="sh">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">plain</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>` Cypher Texg is  `</p>

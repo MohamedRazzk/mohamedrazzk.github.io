@@ -1,4 +1,4 @@
-I"$q<h2 id="inroduction">Inroduction</h2>
+I"Tq<h2 id="inroduction">Inroduction</h2>
 
 <blockquote>
   <p>CodeBlue CTF 2017 - Common Modulus 1,2,3</p>
@@ -206,7 +206,7 @@ M&amp;=\sqrt[d]{M'}\qquad
     <span class="n">m_unpadded</span> <span class="o">=</span> <span class="nf">pad</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
     <span class="n">m17</span> <span class="o">=</span> <span class="nf">nroot</span><span class="p">(</span><span class="n">m_unpadded</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
     <span class="n">flag</span> <span class="o">=</span> <span class="nf">n2s</span><span class="p">(</span><span class="n">m17</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s">'CTF{'</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">:</span>
+    <span class="k">if</span> <span class="sh">'</span><span class="s">CTF{</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">:</span>
         <span class="nf">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
         <span class="k">break</span> 
 </pre></td></tr></tbody></table></code></pre></div></div>

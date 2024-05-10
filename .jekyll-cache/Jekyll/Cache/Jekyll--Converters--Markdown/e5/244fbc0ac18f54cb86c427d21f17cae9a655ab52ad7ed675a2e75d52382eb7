@@ -219,8 +219,8 @@ Rather than that I will loop through all files reading them and check for the by
 7
 8
 9
-</pre></td><td class="rouge-code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">from</span> <span class="n">os</span> <span class="n">import</span> <span class="n">listdir</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">from</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span> <span class="n">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span>
+</pre></td><td class="rouge-code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">from</span> <span class="n">os</span> <span class="k">import</span> <span class="n">listdir</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">from</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span> <span class="k">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">onlyfiles</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="n">in</span> <span class="n">listdir</span><span class="p">(</span><span class="s">"."</span><span class="p">)</span> <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s">"."</span><span class="p">,</span> <span class="n">f</span><span class="p">))]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">file</span> <span class="n">in</span> <span class="n">onlyfiles</span><span class="o">:</span>
 <span class="p">...</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="err">'</span><span class="n">rb</span><span class="err">'</span><span class="p">).</span><span class="n">read</span><span class="p">()</span>

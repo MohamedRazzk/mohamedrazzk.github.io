@@ -1,4 +1,4 @@
-I"ç(<h2 id="inroduction">Inroduction</h2>
+I"¦)<h2 id="inroduction">Inroduction</h2>
 
 <blockquote>
   <p>Qiwi-Infosec - Crypto 400_1 based on Coppersmithâ€™s attack.</p>
@@ -103,9 +103,9 @@
     <span class="k">return</span> <span class="n">x1</span>
 
 <span class="k">def</span> <span class="nf">find_invpow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="s">"""Finds the integer component of the n'th root of x,
+    <span class="sh">"""</span><span class="s">Finds the integer component of the n</span><span class="sh">'</span><span class="s">th root of x,
     an integer such that y ** n &lt;= x &lt; (y + 1) ** n.
-    """</span>
+    </span><span class="sh">"""</span>
     <span class="n">high</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">while</span> <span class="n">high</span> <span class="o">**</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
         <span class="n">high</span> <span class="o">*=</span> <span class="mi">2</span>
@@ -123,7 +123,7 @@
 <span class="n">flag_cubed</span><span class="o">=</span><span class="nf">chinese_remainder</span><span class="p">([</span><span class="n">n1</span><span class="p">,</span><span class="n">n2</span><span class="p">,</span><span class="n">n3</span><span class="p">],[</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">c3</span><span class="p">])</span>
 <span class="n">flag</span><span class="o">=</span><span class="nf">find_invpow</span><span class="p">(</span><span class="n">flag_cubed</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="s">"flag: "</span><span class="p">,</span><span class="nf">hex</span><span class="p">(</span><span class="n">flag</span><span class="p">)[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="nf">decode</span><span class="p">(</span><span class="s">"hex"</span><span class="p">)</span>
+<span class="k">print</span> <span class="sh">"</span><span class="s">flag: </span><span class="sh">"</span><span class="p">,</span><span class="nf">hex</span><span class="p">(</span><span class="n">flag</span><span class="p">)[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="nf">decode</span><span class="p">(</span><span class="sh">"</span><span class="s">hex</span><span class="sh">"</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 <p>` Flag is Captured `Â Â» <code class="language-plaintext highlighter-rouge">theoretical_computer_scientist_johan_torkel_hastad</code></p>
 

@@ -1,4 +1,4 @@
-I"Â<h2 id="inroduction">Inroduction</h2>
+I"ò<h2 id="inroduction">Inroduction</h2>
 
 <blockquote>
   <p>Qiwi-Infosec - Crypto 300_1 shared key in decimal.</p>
@@ -57,7 +57,7 @@ g^c:5361617800833598741530924081762225477418277010142022622731688158297759621329
 <span class="n">gca</span> <span class="o">=</span> <span class="p">(</span><span class="n">gc</span><span class="o">**</span><span class="n">a</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
 <span class="n">gcab</span> <span class="o">=</span> <span class="p">(</span><span class="n">gca</span><span class="o">**</span><span class="n">b</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
 
-<span class="k">print</span> <span class="s">"flag: "</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">gcab</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
+<span class="k">print</span> <span class="sh">"</span><span class="s">flag: </span><span class="sh">"</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">gcab</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 <p>` Flag is Captured `Â Â» <code class="language-plaintext highlighter-rouge">38058349620867258480</code></p>
 

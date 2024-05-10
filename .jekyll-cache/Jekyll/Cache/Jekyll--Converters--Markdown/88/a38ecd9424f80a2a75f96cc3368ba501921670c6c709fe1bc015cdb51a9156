@@ -1,4 +1,4 @@
-I"žc<h2 id="inroduction">Inroduction</h2>
+I"rf<h2 id="inroduction">Inroduction</h2>
 
 <blockquote>
   <p>RITSEC CTF 2018 - CictroHash</p>
@@ -182,7 +182,7 @@ Then we based our output on the hashes returned by the server.</p>
 			<span class="n">self</span><span class="p">.</span><span class="nf">round</span><span class="p">()</span>
 
 	<span class="k">def</span> <span class="nf">squeeze</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="s">'{:02x}'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+		<span class="k">return</span> <span class="sh">''</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="sh">'</span><span class="s">{:02x}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
 
 	<span class="k">def</span> <span class="nf">xor</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 		<span class="k">return</span> <span class="p">[</span><span class="n">c</span> <span class="o">^</span> <span class="n">p</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span>
@@ -228,15 +228,15 @@ Then we based our output on the hashes returned by the server.</p>
 
 <span class="c1"># Testing
 </span><span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">[</span>
-	<span class="p">(</span><span class="s">"HELLOWORLD"</span><span class="p">,</span> <span class="s">"91f1c05e"</span><span class="p">),</span>
-	<span class="p">(</span><span class="s">"HELLOWORLD0"</span><span class="p">,</span> <span class="s">"91f1005e"</span><span class="p">),</span>
+	<span class="p">(</span><span class="sh">"</span><span class="s">HELLOWORLD</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">91f1c05e</span><span class="sh">"</span><span class="p">),</span>
+	<span class="p">(</span><span class="sh">"</span><span class="s">HELLOWORLD0</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">91f1005e</span><span class="sh">"</span><span class="p">),</span>
 <span class="p">]:</span>
 	<span class="n">h</span> <span class="o">=</span> <span class="nc">CictroHash</span><span class="p">()</span>
 	<span class="nf">assert</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="nf">hash</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
 <span class="c1"># "Differential" analysis
 </span><span class="n">XOR</span> <span class="o">=</span> <span class="p">[</span><span class="mb">0b00000001</span><span class="p">,</span> <span class="mb">0b00000010</span><span class="p">,</span> <span class="mb">0b00001000</span><span class="p">,</span> <span class="mb">0b00010000</span><span class="p">,</span> <span class="mb">0b00100000</span><span class="p">,</span> <span class="mb">0b01000000</span><span class="p">,</span> <span class="mb">0b10000000</span><span class="p">]</span>
-<span class="n">seed</span> <span class="o">=</span> <span class="p">[</span><span class="s">"H"</span><span class="p">,</span> <span class="s">"E"</span><span class="p">,</span> <span class="s">"L"</span><span class="p">,</span> <span class="s">"L"</span><span class="p">,</span> <span class="s">"O"</span><span class="p">,</span> <span class="s">"W"</span><span class="p">,</span> <span class="s">"O"</span><span class="p">,</span> <span class="s">"R"</span><span class="p">,</span> <span class="s">"L"</span><span class="p">,</span> <span class="s">"D"</span><span class="p">]</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">H</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">E</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">W</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">R</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">L</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">D</span><span class="sh">"</span><span class="p">]</span>
 <span class="n">found</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">XOR</span><span class="p">:</span>
@@ -244,11 +244,11 @@ Then we based our output on the hashes returned by the server.</p>
 		<span class="n">tmp</span> <span class="o">=</span> <span class="n">seed</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
 		<span class="n">h</span> <span class="o">=</span> <span class="nc">CictroHash</span><span class="p">()</span>
 		<span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">chr</span><span class="p">(</span><span class="nf">ord</span><span class="p">(</span><span class="n">seed</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">^</span> <span class="n">x</span><span class="p">)</span>
-		<span class="n">chash</span> <span class="o">=</span> <span class="n">h</span><span class="p">.</span><span class="nf">hash</span><span class="p">(</span><span class="s">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+		<span class="n">chash</span> <span class="o">=</span> <span class="n">h</span><span class="p">.</span><span class="nf">hash</span><span class="p">(</span><span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
 		<span class="k">if</span> <span class="n">found</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">chash</span><span class="p">):</span>
-			<span class="nf">print</span><span class="p">(</span><span class="n">chash</span><span class="p">,</span> <span class="n">found</span><span class="p">[</span><span class="n">chash</span><span class="p">],</span> <span class="s">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+			<span class="nf">print</span><span class="p">(</span><span class="n">chash</span><span class="p">,</span> <span class="n">found</span><span class="p">[</span><span class="n">chash</span><span class="p">],</span> <span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
 			<span class="nf">exit</span><span class="p">()</span>
-		<span class="n">found</span><span class="p">[</span><span class="n">chash</span><span class="p">]</span> <span class="o">=</span> <span class="s">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>  
+		<span class="n">found</span><span class="p">[</span><span class="n">chash</span><span class="p">]</span> <span class="o">=</span> <span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>  
 </pre></td></tr></tbody></table></code></pre></div></div>
 <p>Bitflip one bit at a time the pre-image searching for a collision</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
