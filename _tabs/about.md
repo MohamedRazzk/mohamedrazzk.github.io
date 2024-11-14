@@ -5,7 +5,7 @@ order: 4
 ---
 
 # Mohamed F. Razzk
-## Information Security Engineer G.D.| SSH International Consultants 
+## Senior Threat Intelligence Specialist | SSH International Consultants 
 
 ### Education
 - Computer and Systems Engineering - Ain Shams University
