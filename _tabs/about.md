@@ -5,7 +5,7 @@ order: 4
 ---
 
 # Mohamed F. Razzk
-## Senior Threat Intelligence Specialist | SSH International Consultants 
+## Senior Threat Intelligence Specialist | OneBank  
 
 ### Education
 - Computer and Systems Engineering - Ain Shams University
