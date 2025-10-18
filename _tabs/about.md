@@ -5,7 +5,7 @@ order: 4
 ---
 
 # Mohamed F. Razzk
-## Senior Threat Intelligence Specialist | OneBank  
+## Senior Cybersecurity Architect | OneBank  
 
 ### Education
 - Computer and Systems Engineering - Ain Shams University
