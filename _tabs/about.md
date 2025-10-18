@@ -5,7 +5,7 @@ order: 4
 ---
 
 # Mohamed F. Razzk
-## Senior Cybersecurity Architect | OneBank  
+## Senior Cybersecurity Architect | onebank  
 
 ### Education
 - Computer and Systems Engineering - Ain Shams University
